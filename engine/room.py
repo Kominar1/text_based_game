@@ -1,3 +1,13 @@
+import time
+import sys
+from item import *
+
+def delay_print(text):
+    for c in text:
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
 class Room:
     def __init__(self, roomId):
         self.roomId_ = roomId
@@ -6,8 +16,10 @@ class Room:
         self.contents_.append(item)
 
     def getContents(self):
-        print(*self.contents_, sep = "\n")
-
+        for i in self.contents_:
+            delay_print(i.getName())
+            print("\n")
+    
     def searchContents(self, item):
         if item.getName().lower().strip() in self.contents_:
             return True
