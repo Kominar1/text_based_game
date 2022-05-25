@@ -54,6 +54,19 @@ class Room:
         with open('E:/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt.txt') as f:
             lines = f.readlines()
             delay_print(lines)
+
+    def getTheRight(self):
+        return self.toTheRight_
+
+    def getTheLeft(self):
+        return self.toTheLeft_
+    
+    def getAhead(self):
+        return self.upAhead_
+
+    def getBehind(self):
+        return self.behind_
+
     roomName_ = ""
     roomId_ = 0
     contents_ = []
