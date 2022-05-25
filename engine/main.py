@@ -12,11 +12,3 @@ def delay_print(text):
         time.sleep(0.05)
 
 player = Player("Kominar")
-flashlight = Item("flashlight", 5)
-knife = Item("knife", 15)
-basement = Room(1)
-
-basement.addContents(flashlight)
-basement.addContents(knife)
-
-basement.getContents()

@@ -9,7 +9,7 @@ def delay_print(text):
         time.sleep(0.05)
 
 class Room:
-    def __init__(self, roomId):
+    def __init__(self, roomId, roomName):
         self.roomId_ = roomId
     
     def addContents(self, item):
@@ -24,7 +24,12 @@ class Room:
         if item.getName().lower().strip() in self.contents_:
             return True
 
+    def removeContents(self, item):
+        if self.searchContents(item.getName()):
+            self.contents_.remove(item)
+
     
 
+    roomName = ""
     roomId_ = 0
     contents_ = []
