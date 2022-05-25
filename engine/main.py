@@ -1,6 +1,6 @@
 import time
 import sys
-import player
+from player import *
 
 
 def delay_print(text):
@@ -9,3 +9,4 @@ def delay_print(text):
         sys.stdout.flush()
         time.sleep(0.05)
 
+player = Player("Kominar")
