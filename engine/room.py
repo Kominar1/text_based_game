@@ -1,5 +1,6 @@
 import time
 import sys
+from tkinter import TRUE
 from item import *
 
 def delay_print(text):
@@ -9,7 +10,8 @@ def delay_print(text):
         time.sleep(0.05)
 
 class Room:
-    def __init__(self, roomId, roomName):
+    def __init__(self, roomName, roomId):
+        self.roomName_ = roomName
         self.roomId_ = roomId
     
     def addContents(self, item):
@@ -28,8 +30,16 @@ class Room:
         if self.searchContents(item.getName()):
             self.contents_.remove(item)
 
+    def move(self, room):
+        if (self.toTheRight == room) or (self.toTheLeft == room) or (self.upAhead == room) or (self.behind == room):
+            return True
     
 
-    roomName = ""
+    roomName_ = ""
     roomId_ = 0
     contents_ = []
+    #What rooms you can move to
+    toTheRight = ""
+    toTheLeft = ""
+    upAhead = ""
+    behind = ""

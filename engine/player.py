@@ -1,8 +1,9 @@
 import item
 
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, currentRoom):
         self.name_ = name
+        self.currentRoom_ = currentRoom
 
     def getHealth(self):
         return self.health_
@@ -26,8 +27,8 @@ class Player:
     def getCurrentRoom(self):
         return self.currentRoom_
     
-    def setCurrentRoom(self, roomId):
-        self.currentRoom_ = roomId
+    def setCurrentRoom(self, roomName):
+        self.currentRoom_ = roomName
 
     def attack(self, item):
         return item.getItemDamage()
@@ -39,5 +40,5 @@ class Player:
     
     health_ = 100
     inventory_ = []
-    currentRoom_ = 0
+    currentRoom_ = ""
     name_ = ""
