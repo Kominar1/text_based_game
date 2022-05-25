@@ -10,9 +10,13 @@ def delay_print(text):
         time.sleep(0.05)
 
 class Room:
-    def __init__(self, roomName, roomId):
+    def __init__(self, roomName, roomId, toTheRight, toTheLeft, upAhead, behind):
         self.roomName_ = roomName
         self.roomId_ = roomId
+        self.toTheRight_ = toTheRight
+        self.toTheLeft_ = toTheLeft
+        self.upAhead_ = upAhead
+        self.behind_ = behind
     
     def addContents(self, item):
         self.contents_.append(item)
@@ -31,15 +35,26 @@ class Room:
             self.contents_.remove(item)
 
     def move(self, room):
-        if (self.toTheRight == room) or (self.toTheLeft == room) or (self.upAhead == room) or (self.behind == room):
+        if (self.toTheRight_ == room) or (self.toTheLeft_ == room) or (self.upAhead_ == room) or (self.behind_ == room):
             return True
+        else:
+            return False
     
+    def getDiscription(self):
+        with open('E:/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
+            lines = f.readlines()
+            delay_print(lines)
+
+    def getLook(self):
+        with open('E:/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
+            lines = f.readlines()
+            delay_print(lines)
 
     roomName_ = ""
     roomId_ = 0
     contents_ = []
     #What rooms you can move to
-    toTheRight = ""
-    toTheLeft = ""
-    upAhead = ""
-    behind = ""
+    toTheRight_ = ""
+    toTheLeft_ = ""
+    upAhead_ = ""
+    behind_ = ""

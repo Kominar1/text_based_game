@@ -17,8 +17,8 @@ class Player:
     def showInv(self):
         print(*self.inventory_, sep = "\n")
     
-    def searchInv(self, name):
-        if name.lower().strip() in self.inventory_:
+    def searchInv(self, item):
+        if item in self.inventory_:
             return True
 
     def addInv(self, item):
