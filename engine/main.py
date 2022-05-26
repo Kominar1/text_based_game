@@ -59,7 +59,13 @@ def getChoice(choice, player):
     if(choice.strip().lower() == "start"):
         return True
     
-
+def searchRooms(roomsIndex, room):
+    if room in rooms:
+        check = True
+    if check:
+        index = roomsIndex.index(room)
+        return roomsIndex[index]
+            
 
 player = Player("Kominar", "basement")
 basement = Room("basement", 1, "null", "null", "hallway", "null")
@@ -67,6 +73,7 @@ hallway = Room("hallway", 2, "null", "bedroom", "hallway2", "basement")
 bedroom = Room("bedroom", 3, "hallway", "null", "null", "null")
 hallway2 = Room("hallway2", 4, "cells", "null", "warproom", "hallway")
 cell = Room("cell", 5, "hallway2", "null", "null", "null")
+rooms = [basement, hallway, bedroom, hallway2, cell]
 flashlight = Item("flashlight", 5)
 knife = Item("knife", 12)
 bat = Item("baseballbat", 15)
@@ -85,4 +92,6 @@ getChoice(choice, player)
 
 if start:
     while(dead != True):
-        basement.getDiscription()
+        currentRoom = searchRooms(rooms, player.getCurrentRoom())
+        currentRoom.getDiscription()
+        getChoice(choice, player)
