@@ -1,4 +1,3 @@
-from os import abort
 import time
 import sys
 from player import *
@@ -17,6 +16,7 @@ def printHelp():
     delay_print("Health: Shows your current health count.\n")
     delay_print("Inventory: Shows the items in your inventory.\n")
     delay_print("Move: Type move and the room you want to move to.\n")
+    delay_print("Look: Tells you some aditional information about the space.\n")
     delay_print("Available: List of rooms available to move to.\n")
     delay_print("Current: Tells the name of the current room you are in.\n")
     delay_print("Exit: Leaves the game.\n")
@@ -35,7 +35,7 @@ def getChoice(choice, player, rooms):
         room = input()
         if(room.strip().lower() == player.getCurrentRoom()):
             delay_print("You are already in this room.\n") 
-        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom())).getTheRight():
+        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getTheRight()):
             player.setCurrentRoom(room)
         if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getTheLeft()):
             player.setCurrentRoom(room)
@@ -43,6 +43,8 @@ def getChoice(choice, player, rooms):
             player.setCurrentRoom(room)
         if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getBehind()):
             player.setCurrentRoom(room)
+    if(choice.strip().lower() == "look"):
+        delay_print(searchRooms(rooms, player.getCurrentRoom()).getLook())
     if(choice.strip().lower() == "available"):
         if(player.getTheRight() != "null"):
             delay_print(player.getTheRight())
@@ -55,7 +57,7 @@ def getChoice(choice, player, rooms):
     if(choice.strip().lower() == "current"):
         delay_print(player.getCurrentRoom())
     if(choice.strip().lower() == "exit"):
-        abort
+        sys.exit()
     if(choice.strip().lower() == "start"):
         return True
     
@@ -63,7 +65,8 @@ def searchRooms(roomsIndex, room):
     i = 0
     for x in roomsIndex:
         if (roomsIndex[i].getName() == room):
-            return roomsIndex[i]
+            this = roomsIndex[i]
+            return this
         i+=1
             
 
