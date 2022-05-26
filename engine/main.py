@@ -24,7 +24,7 @@ def printHelp():
     delay_print("Save: Saves current game.\n")
     delay_print("Start: Starts the game.\n")
 
-def getChoice(choice, player):
+def getChoice(choice, player, rooms):
     if (choice.strip().lower() == "help"):
         printHelp()
     if(choice.strip().lower() == "health"):
@@ -35,13 +35,13 @@ def getChoice(choice, player):
         room = input()
         if(room.strip().lower() == player.getCurrentRoom()):
             delay_print("You are already in this room.\n") 
-        if(room.strip().lower() == player.getTheRight()):
+        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom())).getTheRight():
             player.setCurrentRoom(room)
-        if(room.strip().lower() == player.getTheLeft()):
+        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getTheLeft()):
             player.setCurrentRoom(room)
-        if(room.strip().lower() == player.getAhead()):
+        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getAhead()):
             player.setCurrentRoom(room)
-        if(room.strip().lower() == player.getBehind()):
+        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getBehind()):
             player.setCurrentRoom(room)
     if(choice.strip().lower() == "available"):
         if(player.getTheRight() != "null"):
@@ -60,11 +60,11 @@ def getChoice(choice, player):
         return True
     
 def searchRooms(roomsIndex, room):
-    if room in rooms:
-        check = True
-    if check:
-        index = roomsIndex.index(room)
-        return roomsIndex[index]
+    i = 0
+    for x in roomsIndex:
+        if (roomsIndex[i].getName() == room):
+            return roomsIndex[i]
+        i+=1
             
 
 player = Player("Kominar", "basement")
@@ -86,12 +86,10 @@ cell.addContents(gun)
 
 printHelp()
 choice = input()
-start = False
 dead = False
-getChoice(choice, player)
-
-if start:
+if getChoice(choice, player, rooms):
     while(dead != True):
         currentRoom = searchRooms(rooms, player.getCurrentRoom())
         currentRoom.getDiscription()
-        getChoice(choice, player)
+        choice = input()
+        getChoice(choice, player, rooms)

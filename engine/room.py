@@ -67,6 +67,9 @@ class Room:
     def getBehind(self):
         return self.behind_
 
+    def getName(self):
+        return self.roomName_
+
     roomName_ = ""
     roomId_ = 0
     contents_ = []
