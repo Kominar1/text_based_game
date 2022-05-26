@@ -2,6 +2,7 @@ import time
 import sys
 from tkinter import TRUE
 from item import *
+# Windows path: E:\Projects\text_game_engine\engine\rooms\bedroom
 
 def delay_print(text):
     for c in text:
@@ -27,11 +28,11 @@ class Room:
             print("\n")
     
     def searchContents(self, item):
-        if item.getName().lower().strip() in self.contents_:
+        if item in self.contents_:
             return True
 
     def removeContents(self, item):
-        if self.searchContents(item.getName()):
+        if self.searchContents(item):
             self.contents_.remove(item)
 
     def move(self, room):
@@ -41,19 +42,18 @@ class Room:
             return False
     
     def getDiscription(self):
-        with open('/home/kominar/Visual Studio/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
+        with open('E:/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
             lines = f.readlines()
             delay_print(lines)
 
-
     def getLook(self):
-        with open('/home/kominar/Visual Studio/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
+        with open('E:/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
             lines = f.readlines()
             delay_print(lines)
         
 
     def getLookAlt(self):
-        with open('/home/kominar/Visual Studio/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt.txt') as f:
+        with open('E:/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt.txt') as f:
             lines = f.readlines()
             delay_print(lines)
 

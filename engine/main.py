@@ -1,74 +1,7 @@
-import time
-import sys
+from functions import *
 from player import *
 from item import *
 from room import *
-
-
-def delay_print(text):
-    for c in text:
-        sys.stdout.write(c)
-        sys.stdout.flush()
-        time.sleep(0.03)
-
-def printHelp():
-    delay_print("Help: Brings you to this menu.\n")
-    delay_print("Health: Shows your current health count.\n")
-    delay_print("Inventory: Shows the items in your inventory.\n")
-    delay_print("Move: Type move and the room you want to move to.\n")
-    delay_print("Look: Tells you some aditional information about the space.\n")
-    delay_print("Available: List of rooms available to move to.\n")
-    delay_print("Current: Tells the name of the current room you are in.\n")
-    delay_print("Exit: Leaves the game.\n")
-    delay_print("Load: Loads previous save.\n")
-    delay_print("Save: Saves current game.\n")
-    delay_print("Start: Starts the game.\n")
-
-def getChoice(choice, player, rooms):
-    if (choice.strip().lower() == "help"):
-        printHelp()
-    if(choice.strip().lower() == "health"):
-        delay_print(player.getHealth())
-    if(choice.strip().lower() == "inventory"):
-        player.showInv()
-    if(choice.strip().lower() == "move"):
-        room = input()
-        if(room.strip().lower() == player.getCurrentRoom()):
-            delay_print("You are already in this room.\n") 
-        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getTheRight()):
-            player.setCurrentRoom(room)
-        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getTheLeft()):
-            player.setCurrentRoom(room)
-        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getAhead()):
-            player.setCurrentRoom(room)
-        if(room.strip().lower() == searchRooms(rooms, player.getCurrentRoom()).getBehind()):
-            player.setCurrentRoom(room)
-    if(choice.strip().lower() == "look"):
-        delay_print(searchRooms(rooms, player.getCurrentRoom()).getLook())
-    if(choice.strip().lower() == "available"):
-        if(player.getTheRight() != "null"):
-            delay_print(player.getTheRight())
-        if(player.getTheLeft() != "null"):
-            delay_print(player.getTheLeft())
-        if(player.getAhead() != "null"):
-            delay_print(player.getAhead())
-        if(player.getBehind() != "null"):
-            delay_print(player.getBehind())
-    if(choice.strip().lower() == "current"):
-        delay_print(player.getCurrentRoom())
-    if(choice.strip().lower() == "exit"):
-        sys.exit()
-    if(choice.strip().lower() == "start"):
-        return True
-    
-def searchRooms(roomsIndex, room):
-    i = 0
-    for x in roomsIndex:
-        if (roomsIndex[i].getName() == room):
-            this = roomsIndex[i]
-            return this
-        i+=1
-            
 
 player = Player("Kominar", "basement")
 basement = Room("basement", 1, "null", "null", "hallway", "null")
