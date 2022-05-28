@@ -28,8 +28,10 @@ class Room:
             print("\n")
     
     def searchContents(self, item):
-        if item in self.contents_:
-            return True
+        for x in self.contents_:
+            if (self.contents_[i].getName() == item):
+                return True
+        i+=1
 
     def removeContents(self, item):
         if self.searchContents(item):

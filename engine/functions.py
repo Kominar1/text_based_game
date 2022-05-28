@@ -85,6 +85,12 @@ def getChoice(choice, player, rooms):
         
     if(choice.strip().lower() == "start"):
         return True
+
+    if(choice.strip().lower() == "grab"):
+        item = input()
+        if(current.searchContents(item)):
+            player.addInv(searchItems(current, item))
+            current.removeContents(searchItems(current, item))
     
 def searchRooms(roomsIndex, room):
     i = 0
