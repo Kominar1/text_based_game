@@ -32,8 +32,9 @@ def getChoice(choice, player, rooms):
 
     if(choice.strip().lower() == "inventory"):
         player.showInv()
-        choice = input()
-        getChoice(choice, player, rooms)
+        
+    if(choice.strip().lower() == "items"):
+        current.getContents()
 
     if(choice.strip().lower() == "move"):
         room = input()
@@ -104,7 +105,7 @@ def searchItems(room, item):
     i = 0
     for x in room.contents_:
         if (room.contents_[i].getName() == item):
-            this = room.contents[i]
+            this = room.contents_[i]
             return this
         i+=1
 

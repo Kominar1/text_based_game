@@ -23,15 +23,17 @@ class Room:
         self.contents_.append(item)
 
     def getContents(self):
-        for i in self.contents_:
-            delay_print(i.getName())
-            print("\n")
+        i = 0
+        for x in self.contents_:
+            print(self.contents_[i].getName())
+            i+=1
     
     def searchContents(self, item):
+        i = 0
         for x in self.contents_:
             if (self.contents_[i].getName() == item):
                 return True
-        i+=1
+            i+=1
 
     def removeContents(self, item):
         if self.searchContents(item):

@@ -12,7 +12,7 @@ cell = Room("cell", 5, "hallway2", "null", "null", "null")
 rooms = [basement, hallway, bedroom, hallway2, cell]
 flashlight = Item("flashlight", 5)
 knife = Item("knife", 12)
-bat = Item("baseballbat", 15)
+bat = Item("bat", 15)
 gun = Item("gun", 30)
 basement.addContents(flashlight)
 hallway.addContents(bat)

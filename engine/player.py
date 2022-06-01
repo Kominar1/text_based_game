@@ -15,7 +15,10 @@ class Player:
         self.health_ -= damage
     
     def showInv(self):
-        print(*self.inventory_, sep = "\n")
+        i = 0
+        for x in self.inventory_:
+            self.inventory_[i].getName()
+            i+=1
     
     def searchInv(self, item):
         if item in self.inventory_:
