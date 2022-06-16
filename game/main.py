@@ -3,7 +3,7 @@ from player import *
 from item import *
 from room import *
 
-player = Player("Kominar", "basement")
+player = Player("Player", "basement")
 basement = Room("basement", 1, "null", "null", "hallway", "null")
 hallway = Room("hallway", 2, "null", "bedroom", "hallway2", "basement")
 bedroom = Room("bedroom", 3, "hallway", "null", "null", "null")
