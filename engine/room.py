@@ -14,6 +14,7 @@ class Room:
     def __init__(self, roomName, roomId, toTheRight, toTheLeft, upAhead, behind):
         self.roomName_ = roomName
         self.roomId_ = roomId
+        self.contents_ = []
         self.toTheRight_ = toTheRight
         self.toTheLeft_ = toTheLeft
         self.upAhead_ = upAhead
