@@ -2,9 +2,9 @@ import time
 import sys
 from tkinter import TRUE
 from item import *
-# Windows path: E:/Projects/text_game_engine/engine/rooms/
+# Windows path: E:/Projects/text_game/game/rooms/
 #Linux path: /home/kominar/Visual Studio/Projects/text_game_engine/engine/rooms/
-
+#
 def delay_print(text):
     for c in text:
         sys.stdout.write(c)
@@ -48,18 +48,18 @@ class Room:
             return False
     
     def getDiscription(self):
-        with open('/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
+        with open('E:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
             lines = f.readlines()
             delay_print(lines)
 
     def getLook(self):
-        with open('/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
+        with open('e:/Projects/text_game/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
             lines = f.readlines()
             delay_print(lines)
         
 
     def getLookAlt(self):
-        with open('/Projects/text_game_engine/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt.txt') as f:
+        with open('e:/Projects/text_game/engine/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt.txt') as f:
             lines = f.readlines()
             delay_print(lines)
 

@@ -4,6 +4,7 @@ class Player:
     def __init__(self, name, currentRoom):
         self.name_ = name
         self.currentRoom_ = currentRoom
+        self.inventory_ = []
 
     def getHealth(self):
         return self.health_
