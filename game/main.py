@@ -32,13 +32,12 @@ if(choice.strip().lower() == "load"):
         if(items[i] == lines[i]):
             player.addInv(items[i])
         i+=1
-    length+=2
+    length+=1
     player.setHealth = int(lines[length])
     length+=1
-    player.setCurrentRoom(lines[length])
+    player.setCurrentRoom(lines[length][:-1])
     length+=1
     player.setName(lines[length])
-    print(length)
     
 if getChoice(choice, player, rooms):
     while(dead != True):

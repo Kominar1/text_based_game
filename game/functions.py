@@ -103,7 +103,7 @@ def getChoice(choice, player, rooms):
             i+=1
         f.write(str(player.getHealth()) + "\n")
         f.write(player.getCurrentRoom() + "\n")
-        f.write(player.name_ + "\n")
+        f.write(player.name_)
         f.close()
     if(choice.strip().lower() == "load"):
         f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
