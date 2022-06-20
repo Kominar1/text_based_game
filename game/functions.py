@@ -95,13 +95,13 @@ def getChoice(choice, player, rooms):
             current.removeContents(searchItems(current, item))
     if(choice.strip().lower() == "save"):
         f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
-        f.write(str(player.getHealth()))
-        f.write("\n")
         i = 0
+        length = len(player.inventory_)
+        f.write(str(length) + "\n")
         for x in player.inventory_:
-            f.write(player.inventory_[i].getName())
+            f.write(player.inventory_[i].getName() + "\n")
             i+=1
-        f.write("\n")
+        f.write(str(player.getHealth()) + "\n")
         f.write(player.getCurrentRoom() + "\n")
         f.write(player.name_ + "\n")
         f.close()

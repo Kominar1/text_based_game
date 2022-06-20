@@ -6,6 +6,9 @@ class Player:
         self.currentRoom_ = currentRoom
         self.inventory_ = []
 
+    def setName(self, name):
+        self.name_ = name
+
     def getHealth(self):
         return self.health_
 

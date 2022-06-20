@@ -16,6 +16,7 @@ flashlight = Item("flashlight", 5)
 knife = Item("knife", 12)
 bat = Item("bat", 15)
 gun = Item("gun", 30)
+items = [flashlight, knife, bat, gun]
 basement.addContents(flashlight)
 hallway.addContents(bat)
 bedroom.addContents(flashlight)
@@ -25,7 +26,19 @@ dead = False
 first = True
 if(choice.strip().lower() == "load"):
     lines = getChoice(choice, player, rooms)
-    player.setHealth(lines[0])
+    length = int(lines[0])
+    i=1
+    while(i <= length):
+        if(items[i] == lines[i]):
+            player.addInv(items[i])
+        i+=1
+    length+=2
+    player.setHealth = int(lines[length])
+    length+=1
+    player.setCurrentRoom(lines[length])
+    length+=1
+    player.setName(lines[length])
+    print(length)
     
 if getChoice(choice, player, rooms):
     while(dead != True):

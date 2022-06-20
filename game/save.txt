@@ -1,4 +1,7 @@
+3
+flashlight
+bat
+knife
 100
-
 hallway
 Player
