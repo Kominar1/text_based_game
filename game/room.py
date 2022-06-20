@@ -38,8 +38,7 @@ class Room:
             i+=1
 
     def removeContents(self, item):
-        if self.searchContents(item):
-            self.contents_.remove(item)
+        self.contents_.remove(item)
 
     def move(self, room):
         if (self.toTheRight_ == room) or (self.toTheLeft_ == room) or (self.upAhead_ == room) or (self.behind_ == room):

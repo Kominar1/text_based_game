@@ -18,7 +18,7 @@ class Player:
     def showInv(self):
         i = 0
         for x in self.inventory_:
-            self.inventory_[i].getName()
+            print(self.inventory_[i].getName())
             i+=1
     
     def searchInv(self, item):

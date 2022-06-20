@@ -24,18 +24,19 @@ def printHelp():
 
 def getChoice(choice, player, rooms):
     current = searchRooms(rooms, player.getCurrentRoom())
+    #Done
     if (choice.strip().lower() == "help"):
         printHelp()
-
+    #Done
     if(choice.strip().lower() == "health"):
         print(player.getHealth())
-
+    #Done
     if(choice.strip().lower() == "inventory"):
         player.showInv()
-        
+    #Done
     if(choice.strip().lower() == "items"):
         current.getContents()
-
+    #Done
     if(choice.strip().lower() == "move"):
         room = input()
 
@@ -55,12 +56,12 @@ def getChoice(choice, player, rooms):
 
         if(room.strip().lower() == current.getBehind()):
             player.setCurrentRoom(room)
-
+    #Done
     if(choice.strip().lower() == "look"):
         print(current.getLook())
         choice = input()
         getChoice(choice, player, rooms)
-
+    #Done
     if(choice.strip().lower() == "available"):
         if(current.getTheRight() != "null"):
             print(current.getTheRight())
@@ -75,18 +76,18 @@ def getChoice(choice, player, rooms):
             print(current.getBehind())
         choice = input()
         getChoice(choice, player, rooms)
-
+    #Done
     if(choice.strip().lower() == "current"):
         print(player.getCurrentRoom())
         choice = input()
         getChoice(choice, player, rooms)
-
+    #Done
     if(choice.strip().lower() == "exit"):
         sys.exit()
-        
+    #Done
     if(choice.strip().lower() == "start"):
         return True
-
+    #Done
     if(choice.strip().lower() == "grab"):
         item = input()
         if(current.searchContents(item)):
