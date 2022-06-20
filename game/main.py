@@ -9,7 +9,7 @@ player = Player("Player", "basement")
 basement = Room("basement", 1, "null", "null", "hallway", "null")
 hallway = Room("hallway", 2, "null", "bedroom", "hallway2", "basement")
 bedroom = Room("bedroom", 3, "hallway", "null", "null", "null")
-hallway2 = Room("hallway2", 4, "cells", "null", "warproom", "hallway")
+hallway2 = Room("hallway2", 4, "cell", "null", "warproom", "hallway")
 cell = Room("cell", 5, "hallway2", "null", "null", "null")
 rooms = [basement, hallway, bedroom, hallway2, cell]
 flashlight = Item("flashlight", 5)
@@ -26,18 +26,30 @@ dead = False
 first = True
 if(choice.strip().lower() == "load"):
     lines = getChoice(choice, player, rooms)
-    length = int(lines[0])
+    lineLength = int(lines[0])
+    itemsLength = len(items)
+    print(itemsLength)
     i=1
-    while(i <= length):
-        if(items[i] == lines[i]):
-            player.addInv(items[i])
+    while(i <= lineLength):
+        j = 0
+        while(j<itemsLength):
+            print("j: " + str(j) + "\n")
+            print("i: " + str(i) + "\n")
+            print("Lines: " + lines[i][:-1] + "\n")
+            print("Items: " + items[j].getName() + "\n")
+            if(items[j].getName() == lines[i][-1]):
+                player.addInv(items[j])
+                print("Success\n")
+            else:
+                print("Fail\n")
+                j+=1
         i+=1
-    length+=1
-    player.setHealth = int(lines[length])
-    length+=1
-    player.setCurrentRoom(lines[length][:-1])
-    length+=1
-    player.setName(lines[length])
+    lineLength+=1
+    player.setHealth = int(lines[lineLength][:-1])
+    lineLength+=1
+    player.setCurrentRoom(lines[lineLength][:-1])
+    lineLength+=1
+    player.setName(lines[lineLength][:-1])
     
 if getChoice(choice, player, rooms):
     while(dead != True):
