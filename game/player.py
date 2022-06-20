@@ -15,6 +15,9 @@ class Player:
     def lowerHealth(self, damage):
         self.health_ -= damage
     
+    def setHealth(self, health):
+        self.health_ = health
+
     def showInv(self):
         i = 0
         for x in self.inventory_:

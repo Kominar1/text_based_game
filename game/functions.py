@@ -25,7 +25,7 @@ def printHelp():
 def getChoice(choice, player, rooms):
     current = searchRooms(rooms, player.getCurrentRoom())
     #Done
-    if (choice.strip().lower() == "help"):
+    if(choice.strip().lower() == "help"):
         printHelp()
     #Done
     if(choice.strip().lower() == "health"):
@@ -93,7 +93,24 @@ def getChoice(choice, player, rooms):
         if(current.searchContents(item)):
             player.addInv(searchItems(current, item))
             current.removeContents(searchItems(current, item))
-    
+    if(choice.strip().lower() == "save"):
+        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
+        f.write(str(player.getHealth()))
+        f.write("\n")
+        i = 0
+        for x in player.inventory_:
+            f.write(player.inventory_[i].getName())
+            i+=1
+        f.write("\n")
+        f.write(player.getCurrentRoom() + "\n")
+        f.write(player.name_ + "\n")
+        f.close()
+    if(choice.strip().lower() == "load"):
+        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
+        lines = f.readlines()
+        f.close()
+        return lines
+
 def searchRooms(roomsIndex, room):
     i = 0
     for x in roomsIndex:
