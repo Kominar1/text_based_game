@@ -47,13 +47,14 @@ class Player:
                 return self.inventory_[i]
             i+=1
     def equipItem(self, item):
+        print(item)
         itemEquiped = self.searchItem(item)
         if(self.searchInv(itemEquiped)):
             self.equiped_ = itemEquiped
         else:
             print("You don't have this item in your inventory.")
     def checkEquiped(self):
-        print(self.equiped_.getName())
+        print("You have the " + self.equiped_.getName() + " equiped.")
     
     def attack(self, ):
         return self.equiped_.getItemDamage()    

@@ -116,10 +116,13 @@ def getChoice(choice, player, rooms):
         return lines
 
     if(part2.strip().lower() == "equip"):
-        item = choice[7:]
+        item = choice[6:]
         player.equipItem(item)
-    if(choice.strip().lower() == "equiped"):
+        print("You equiped the " + item)
+    
+    if(choice.strip().lower() == "in use"):
         player.checkEquiped()
+
 def searchRooms(roomsIndex, room):
     i = 0
     for x in roomsIndex:
