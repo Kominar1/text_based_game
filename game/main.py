@@ -2,9 +2,12 @@ from functions import *
 from player import *
 from item import *
 from room import *
+from enemy import *
 
 printHelp()
 choice = input()
+
+#Creating objects
 player = Player("Player", "basement")
 basement = Room("basement", 1, "null", "null", "hallway", "null")
 hallway = Room("hallway", 2, "null", "bedroom", "hallway2", "basement")
@@ -17,13 +20,20 @@ knife = Item("knife", 12)
 bat = Item("bat", 15)
 gun = Item("gun", 30)
 items = [flashlight, knife, bat, gun]
+entity = Enemy(5, 100, "entity1")
+
+#Adding objects to rooms
 basement.addContents(flashlight)
 hallway.addContents(bat)
 bedroom.addContents(flashlight)
 bedroom.addContents(knife)
 cell.addContents(gun)
+cell.addEnemy(entity)
+
 dead = False
 first = True
+
+#Loading a saved game
 if(choice.strip().lower() == "load"):
     lines = getChoice(choice, player, rooms)
     lineLength = int(lines[0])
@@ -41,6 +51,7 @@ if(choice.strip().lower() == "load"):
                 print("Fail\n")
                 j+=1
         i+=1
+
     lineLength+=1
     player.setHealth = int(lines[lineLength][:-1])
     lineLength+=1

@@ -24,13 +24,15 @@ def printHelp():
 
 def getChoice(choice, player, rooms):
     current = searchRooms(rooms, player.getCurrentRoom())
+    #Check if the first part of the string is move or grab
     part = choice[0:4]
+    part2 = choice[0:5]
     #Done
     if(choice.strip().lower() == "help"):
         printHelp()
     #Done
     if(choice.strip().lower() == "health"):
-        print(player.getHealth())
+        print("Your health is at: " + player.getHealth())
     #Done
     if(choice.strip().lower() == "inventory"):
         player.showInv()
@@ -39,8 +41,8 @@ def getChoice(choice, player, rooms):
         current.getContents()
     #Done
     if(part.strip().lower() == "move"):
+        #Get the room from the string
         room = choice[5:]
-
         if(room.strip().lower() == player.getCurrentRoom()):
             delay_print("You are already in this room.\n") 
             choice = input()
@@ -57,7 +59,7 @@ def getChoice(choice, player, rooms):
 
         if(room.strip().lower() == current.getBehind()):
             player.setCurrentRoom(room)
-    #Done
+    #Almost done
     if(choice.strip().lower() == "look"):
         print(current.getLook())
         choice = input()
@@ -113,6 +115,11 @@ def getChoice(choice, player, rooms):
         f.close()
         return lines
 
+    if(part2.strip().lower() == "equip"):
+        item = choice[7:]
+        player.equipItem(item)
+    if(choice.strip().lower() == "equiped"):
+        player.checkEquiped()
 def searchRooms(roomsIndex, room):
     i = 0
     for x in roomsIndex:
