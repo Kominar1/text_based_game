@@ -8,22 +8,23 @@ def delay_print(text):
         time.sleep(0.03)
 
 def printHelp():
-    print("Help: Brings you to this menu.\n")
-    print("Health: Shows your current health count.\n")
-    print("Inventory: Shows the items in your inventory.\n")
-    print("Items: Prints a list of available items in the room.\n")
-    print("Grab: Type grab and then the item you want to get.\n")
-    print("Move: Type move and the room you want to move to.\n")
-    print("Look: Tells you some aditional information about the space.\n")
-    print("Available: List of rooms available to move to.\n")
-    print("Current: Tells the name of the current room you are in.\n")
-    print("Exit: Leaves the game.\n")
-    print("Load: Loads previous save.\n")
-    print("Save: Saves current game.\n")
-    print("Start: Starts the game.\n")
+    print("Help: Brings you to this menu.")
+    print("Health: Shows your current health count.")
+    print("Inventory: Shows the items in your inventory.")
+    print("Items: Prints a list of available items in the room.")
+    print("Grab: Type grab and then the item you want to get.")
+    print("Move: Type move and the room you want to move to.")
+    print("Look: Tells you some aditional information about the space.")
+    print("Available: List of rooms available to move to.")
+    print("Current: Tells the name of the current room you are in.")
+    print("Exit: Leaves the game.")
+    print("Load: Loads previous save.")
+    print("Save: Saves current game.")
+    print("Start: Starts the game.")
 
 def getChoice(choice, player, rooms):
     current = searchRooms(rooms, player.getCurrentRoom())
+    part = choice[0:4]
     #Done
     if(choice.strip().lower() == "help"):
         printHelp()
@@ -37,8 +38,8 @@ def getChoice(choice, player, rooms):
     if(choice.strip().lower() == "items"):
         current.getContents()
     #Done
-    if(choice.strip().lower() == "move"):
-        room = input()
+    if(part.strip().lower() == "move"):
+        room = choice[5:]
 
         if(room.strip().lower() == player.getCurrentRoom()):
             delay_print("You are already in this room.\n") 
@@ -78,9 +79,7 @@ def getChoice(choice, player, rooms):
         getChoice(choice, player, rooms)
     #Done
     if(choice.strip().lower() == "current"):
-        print(player.getCurrentRoom())
-        choice = input()
-        getChoice(choice, player, rooms)
+        print("You are currently in the " + player.getCurrentRoom() + ".")
     #Done
     if(choice.strip().lower() == "exit"):
         sys.exit()
@@ -88,11 +87,13 @@ def getChoice(choice, player, rooms):
     if(choice.strip().lower() == "start"):
         return True
     #Done
-    if(choice.strip().lower() == "grab"):
-        item = input()
+    if(part.strip().lower() == "grab"):
+        item = choice[5:]
         if(current.searchContents(item)):
             player.addInv(searchItems(current, item))
             current.removeContents(searchItems(current, item))
+        print("You have successfully added " + item + " to your invnetory!")
+    #Done
     if(choice.strip().lower() == "save"):
         f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
         i = 0
@@ -105,6 +106,7 @@ def getChoice(choice, player, rooms):
         f.write(player.getCurrentRoom() + "\n")
         f.write(player.name_)
         f.close()
+    #Done
     if(choice.strip().lower() == "load"):
         f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
         lines = f.readlines()

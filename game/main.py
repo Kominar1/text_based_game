@@ -33,13 +33,10 @@ if(choice.strip().lower() == "load"):
     while(i <= lineLength):
         j = 0
         while(j<itemsLength):
-            print("j: " + str(j) + "\n")
-            print("i: " + str(i) + "\n")
-            print("Lines: " + lines[i][:-1] + "\n")
-            print("Items: " + items[j].getName() + "\n")
-            if(items[j].getName() == lines[i][-1]):
+            if(items[j].getName() == lines[i].strip().lower()):
                 player.addInv(items[j])
                 print("Success\n")
+                break
             else:
                 print("Fail\n")
                 j+=1
@@ -58,6 +55,6 @@ if getChoice(choice, player, rooms):
             currentRoom.getDiscription()
             first = False
         choice = input()
-        if(choice.strip().lower() == "move"):
+        if(choice[0:4].strip().lower() == "move"):
             first = True
         getChoice(choice, player, rooms)

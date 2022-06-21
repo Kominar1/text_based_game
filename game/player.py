@@ -23,9 +23,14 @@ class Player:
 
     def showInv(self):
         i = 0
-        for x in self.inventory_:
-            print(self.inventory_[i].getName())
-            i+=1
+        if not self.inventory_:
+            print("Your inventory is empty.")
+        else:
+            print("///////////////////////////////////////////////////////")
+            for x in self.inventory_:
+                print(self.inventory_[i].getName())
+                i+=1
+            print("///////////////////////////////////////////////////////")
     
     def searchInv(self, item):
         if item in self.inventory_:

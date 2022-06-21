@@ -26,6 +26,7 @@ class Room:
 
     def getContents(self):
         i = 0
+        print("The current items in the room are: ")
         for x in self.contents_:
             print(self.contents_[i].getName())
             i+=1
