@@ -1,8 +1,4 @@
-4
-flashlight
-bat
-knife
-gun
+0
 100
-cell
+hallway
 Player

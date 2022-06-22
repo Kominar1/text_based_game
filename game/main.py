@@ -1,8 +1,7 @@
 from functions import *
-from player import *
+from entity import *
 from item import *
 from room import *
-from enemy import *
 
 printHelp()
 choice = input()
@@ -20,7 +19,7 @@ knife = Item("knife", 12)
 bat = Item("bat", 15)
 gun = Item("gun", 30)
 items = [flashlight, knife, bat, gun]
-entity = Enemy(5, 100, "entity1")
+entity = Enemy("distorted", "cell", 10, 100)
 
 #Adding objects to rooms
 basement.addContents(flashlight)

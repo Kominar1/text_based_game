@@ -97,7 +97,7 @@ def getChoice(choice, player, rooms):
         print("You have successfully added " + item + " to your invnetory!")
     #Done
     if(choice.strip().lower() == "save"):
-        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
+        f = open("e:/Projects/text_game/game/save.txt", "w")
         i = 0
         length = len(player.inventory_)
         f.write(str(length) + "\n")
@@ -110,7 +110,7 @@ def getChoice(choice, player, rooms):
         f.close()
     #Done
     if(choice.strip().lower() == "load"):
-        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
+        f = open("e:/Projects/text_game/game/save.txt")
         lines = f.readlines()
         f.close()
         return lines

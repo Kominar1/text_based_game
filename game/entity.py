@@ -1,11 +1,11 @@
 from item import *
+import random
 
-class Player:
+class Entity:
     def __init__(self, name, currentRoom):
         self.name_ = name
         self.currentRoom_ = currentRoom
-        self.inventory_ = []
-
+        self.health_ = 100
     #Health functions
     def getHealth(self):
         return self.health_
@@ -15,6 +15,17 @@ class Player:
         self.health_ -= damage    
     def setHealth(self, health):
         self.health_ = health
+
+    def checkIfDead(self):
+        if self.health_ != 0:
+            return False
+        return True
+
+class Player(Entity):
+    def __init__(self, name, currentRoom):
+        super().__init__(name, currentRoom)
+        self.inventory_ = []
+        self.equiped_ = Item("blank", 0)
 
     #Inventory functions
     def showInv(self):
@@ -58,13 +69,20 @@ class Player:
     
     def attack(self, ):
         return self.equiped_.getItemDamage()    
-    def checkIfDead(self):
-        if self.health_ != 0:
-            return False
-        return True
+    def setName(self, name):
+        self.name_ = name
 
-    health_ = 100
-    inventory_ = []
-    currentRoom_ = ""
-    name_ = ""
-    equiped_ = Item("blank", 0)
+class Enemy(Entity):
+    def __init__(self, name, currentRoom, attack, dodgeChance):
+        super().__init__(name, currentRoom)
+        self.attack_ = attack
+        self.dodgeChance_ = dodgeChance
+
+    def attack(self):
+        return self.attack_
+
+    def dodgeChance(self):
+        return random.randrange(1, self.dodgeChance_, 3)
+
+    def getName(self):
+        return self.name_
