@@ -53,6 +53,12 @@ class Room:
             i+=1   
     def removeEnemies(self, enemy):
         self.enemies_.remove(enemy)
+    def searchEnemies(self, name):
+        i = 0
+        for x in self.enemies_:
+            if (self.enemies_[i].getName() == name):
+                return self.enemies_[i]
+            i+=1
     
     #Description functions
     def getDiscription(self):

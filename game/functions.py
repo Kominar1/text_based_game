@@ -20,6 +20,10 @@ def printHelp():
     print("Exit: Leaves the game.")
     print("Load: Loads previous save.")
     print("Save: Saves current game.")
+    print("Equip: Lets you equip an item from your inventory.")
+    print("In Use: Lets you check which item you have equiped.")
+    print("Attack: Lets you attack an enemy by typing attack and then the name of the enemy.")
+    print("Enemies: Gives you a list of enemies you can attack.")
     print("Start: Starts the game.")
 
 def getChoice(choice, player, rooms):
@@ -27,6 +31,7 @@ def getChoice(choice, player, rooms):
     #Check if the first part of the string is move or grab
     part = choice[0:4]
     part2 = choice[0:5]
+    attack = choice[0:6]
     #Done
     if(choice.strip().lower() == "help"):
         printHelp()
@@ -114,14 +119,21 @@ def getChoice(choice, player, rooms):
         lines = f.readlines()
         f.close()
         return lines
-
+    #Done
     if(part2.strip().lower() == "equip"):
         item = choice[6:]
         player.equipItem(item)
         print("You equiped the " + item)
-    
+    #Done
     if(choice.strip().lower() == "in use"):
         player.checkEquiped()
+    
+    if(attack.strip().lower() == "attack"):
+        enemyName = choice[7:]
+        enemy = current.searchEnemies(enemyName)
+        enemy.lowerHealth(player.attack())
+    if(choice.strip().lower() == "enemies"):
+        current.getEnemies()
 
 def searchRooms(roomsIndex, room):
     i = 0

@@ -82,7 +82,14 @@ class Enemy(Entity):
         return self.attack_
 
     def dodgeChance(self):
-        return random.randrange(1, self.dodgeChance_, 3)
+        return random.randrange(1, self.dodgeChance_, 1)
 
     def getName(self):
         return self.name_
+
+    def lowerHealth(self, damage):
+        if(self.dodgeChance() != 2):
+            self.health_ -= damage
+            print("You hit them! They have " + str(self.getHealth()) + " health left!")
+        else:
+            print("Oh no! They dodged away from your attack! You did no damage!")
