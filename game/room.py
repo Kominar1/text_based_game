@@ -59,6 +59,7 @@ class Room:
             if (self.enemies_[i].getName() == name):
                 return self.enemies_[i]
             i+=1
+        return False
     
     #Description functions
     def getDiscription(self):

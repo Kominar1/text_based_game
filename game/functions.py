@@ -37,7 +37,7 @@ def getChoice(choice, player, rooms):
         printHelp()
     #Done
     if(choice.strip().lower() == "health"):
-        print("Your health is at: " + player.getHealth())
+        print("Your health is at: " + str(player.getHealth()))
     #Done
     if(choice.strip().lower() == "inventory"):
         player.showInv()
@@ -130,8 +130,28 @@ def getChoice(choice, player, rooms):
     
     if(attack.strip().lower() == "attack"):
         enemyName = choice[7:]
-        enemy = current.searchEnemies(enemyName)
-        enemy.lowerHealth(player.attack())
+        
+        if(current.searchEnemies(enemyName) == False):
+            print("There is nothing here with that name.")
+        else:
+            enemy = current.searchEnemies(enemyName)
+            flee = False
+            block = False
+            while(player.checkIfDead() == False and enemy.checkIfDead() == False and flee == False):
+                block = False
+                #Do you want to attack block or flee
+                print("Would you like to attack, block or flee?")
+                choice = input()
+                if(choice.strip().lower() == "attack"):
+                    enemy.lowerHealth(player.attack())
+                elif(choice.strip().lower() == "block"):
+                    block = player.block()                
+                elif(choice.strip().lower() == "flee"):
+                    flee = True
+
+                if(block == False):
+                    player.lowerHealth(enemy.attack())
+    
     if(choice.strip().lower() == "enemies"):
         current.getEnemies()
 

@@ -50,7 +50,6 @@ if(choice.strip().lower() == "load"):
                 print("Fail\n")
                 j+=1
         i+=1
-
     lineLength+=1
     player.setHealth = int(lines[lineLength][:-1])
     lineLength+=1

@@ -1,4 +1,5 @@
-0
-100
-hallway
-Player
+1
+gun
+60
+hallway2
+Playe

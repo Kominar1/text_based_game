@@ -6,6 +6,7 @@ class Entity:
         self.name_ = name
         self.currentRoom_ = currentRoom
         self.health_ = 100
+
     #Health functions
     def getHealth(self):
         return self.health_
@@ -15,18 +16,21 @@ class Entity:
         self.health_ -= damage    
     def setHealth(self, health):
         self.health_ = health
-
     def checkIfDead(self):
-        if self.health_ != 0:
+        if(self.getHealth() <= 0):
+            return True
+        else:
             return False
-        return True
 
 class Player(Entity):
     def __init__(self, name, currentRoom):
         super().__init__(name, currentRoom)
         self.inventory_ = []
-        self.equiped_ = Item("blank", 0)
+        self.equiped_ = Item("blank", 1)
 
+    def lowerHealth(self, damage):
+        self.health_ -= damage
+        print("You've been hit! Your health is now at " + str(self.getHealth()) + ".")
     #Inventory functions
     def showInv(self):
         i = 0
@@ -67,8 +71,11 @@ class Player(Entity):
     def checkEquiped(self):
         print("You have the " + self.equiped_.getName() + " equiped.")
     
-    def attack(self, ):
+    def attack(self):
         return self.equiped_.getItemDamage()    
+    def block(self):
+        print("You blocked the attack!")
+        return True
     def setName(self, name):
         self.name_ = name
 
@@ -88,8 +95,11 @@ class Enemy(Entity):
         return self.name_
 
     def lowerHealth(self, damage):
-        if(self.dodgeChance() != 2):
-            self.health_ -= damage
-            print("You hit them! They have " + str(self.getHealth()) + " health left!")
+        if(self.checkIfDead()):
+            print("You killed it!")
         else:
-            print("Oh no! They dodged away from your attack! You did no damage!")
+            if(self.dodgeChance() != 2):
+                self.health_ -= damage
+                print("You hit them! They have " + str(self.getHealth()) + " health left!")
+            else:
+                print("Oh no! They dodged away from your attack! You did no damage!")
