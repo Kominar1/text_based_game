@@ -5,6 +5,7 @@ from room import *
 
 printHelp()
 choice = input()
+choice = choice.strip().lower()
 
 #Creating objects
 player = Player("Player", "basement")
@@ -23,7 +24,7 @@ entity = Enemy("distorted", "cell", 10, 100)
 
 #Adding objects to rooms
 basement.addContents(flashlight)
-hallway.addContents(bat)
+corridor.addContents(bat)
 bedroom.addContents(flashlight)
 bedroom.addContents(knife)
 cell.addContents(gun)
@@ -33,7 +34,7 @@ dead = False
 first = True
 
 #Loading a saved game
-if(choice.strip().lower() == "load"):
+if "load" in choice:
     lines = getChoice(choice, player, rooms)
     lineLength = int(lines[0])
     itemsLength = len(items)
@@ -44,10 +45,8 @@ if(choice.strip().lower() == "load"):
         while(j<itemsLength):
             if(items[j].getName() == lines[i].strip().lower()):
                 player.addInv(items[j])
-                print("Success\n")
                 break
             else:
-                print("Fail\n")
                 j+=1
         i+=1
     lineLength+=1

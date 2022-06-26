@@ -89,6 +89,7 @@ def getChoice(choice, player, rooms):
         return True
     #
     if "grab" in choice:
+        item = ""
         i = 0
         for x in current.contents_:
             if current.contents_[i].getName() in choice:
@@ -100,7 +101,7 @@ def getChoice(choice, player, rooms):
         print("You have successfully added " + item + " to your invnetory!")
     #Done
     if "save" in choice:
-        f = open("e:/Projects/text_game/game/save.txt", "w")
+        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
         i = 0
         length = len(player.inventory_)
         f.write(str(length) + "\n")
@@ -113,19 +114,21 @@ def getChoice(choice, player, rooms):
         f.close()
     #Done
     if "load" in choice:
-        f = open("e:/Projects/text_game/game/save.txt")
+        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
         lines = f.readlines()
         f.close()
         return lines
     #Done
     if "equip" in choice:
-        i = 0
-        for x in current.contents_:
-            if current.contents_[i].getName() in choice:
-                item = current.contents_[i].getName()
-            i+=1
-        player.equipItem(item)
-        print("You equiped the " + item)
+        if "un" not in choice:
+            item = ""
+            i = 0
+            for x in current.contents_:
+                if current.contents_[i].getName() in choice:
+                    item = current.contents_[i].getName()
+                i+=1
+            player.equipItem(item)
+            print("You equiped the " + item)
     #Done
     if "in use" in choice:
         player.checkEquiped()
@@ -157,9 +160,13 @@ def getChoice(choice, player, rooms):
 
                 if(block == False):
                     player.lowerHealth(enemy.attack())
-    
+    #Done
     if "enemies" in choice:
         current.getEnemies()
+
+    if "unequip" in choice:
+        if(choice == "unequip"):
+            player.unequip()
 
 def searchRooms(roomsIndex, room):
     i = 0

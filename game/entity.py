@@ -68,6 +68,9 @@ class Player(Entity):
             self.equiped_ = itemEquiped
         else:
             print("You don't have this item in your inventory.")
+    def unequip(self):
+        self.equiped_ = Item("blank", 1)
+        print("You have unequiped your item.")
     def checkEquiped(self):
         print("You have the " + self.equiped_.getName() + " equiped.")
     
