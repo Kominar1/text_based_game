@@ -28,49 +28,43 @@ def printHelp():
 
 def getChoice(choice, player, rooms):
     current = searchRooms(rooms, player.getCurrentRoom())
-    #Check if the first part of the string is move or grab
-    part = choice[0:4]
-    part2 = choice[0:5]
-    attack = choice[0:6]
+    choice = choice.strip().lower()
     #Done
-    if(choice.strip().lower() == "help"):
+    if "help" in choice:
         printHelp()
     #Done
-    if(choice.strip().lower() == "health"):
+    if "health" in choice:
         print("Your health is at: " + str(player.getHealth()))
     #Done
-    if(choice.strip().lower() == "inventory"):
+    if "inventory" in choice:
         player.showInv()
     #Done
-    if(choice.strip().lower() == "items"):
+    if "items" in choice:
         current.getContents()
     #Done
-    if(part.strip().lower() == "move"):
+    if "move" in choice:
         #Get the room from the string
-        room = choice[5:]
-        if(room.strip().lower() == player.getCurrentRoom()):
+        if player.getCurrentRoom() in choice:
             delay_print("You are already in this room.\n") 
             choice = input()
             getChoice(choice, player, rooms)
 
-        if(room.strip().lower() == current.getTheRight()):
-            player.setCurrentRoom(room)
+        if current.getTheRight() in choice:
+            player.setCurrentRoom(current.getTheRight())
 
-        if(room.strip().lower() == current.getTheLeft()):
-            player.setCurrentRoom(room)
+        if current.getTheLeft() in choice:
+            player.setCurrentRoom(current.getTheLeft())
 
-        if(room.strip().lower() == current.getAhead()):
-            player.setCurrentRoom(room)
+        if current.getAhead() in choice:
+            player.setCurrentRoom(current.getAhead())
 
-        if(room.strip().lower() == current.getBehind()):
-            player.setCurrentRoom(room)
-    #Almost done
-    if(choice.strip().lower() == "look"):
-        print(current.getLook())
-        choice = input()
-        getChoice(choice, player, rooms)
+        if current.getBehind() in choice:
+            player.setCurrentRoom(current.getBehind())
     #Done
-    if(choice.strip().lower() == "available"):
+    if "look" in choice:
+        print(current.getLook())
+    #Done
+    if "available" in choice:
         if(current.getTheRight() != "null"):
             print(current.getTheRight())
 
@@ -85,23 +79,27 @@ def getChoice(choice, player, rooms):
         choice = input()
         getChoice(choice, player, rooms)
     #Done
-    if(choice.strip().lower() == "current"):
+    if "current" in choice:
         print("You are currently in the " + player.getCurrentRoom() + ".")
     #Done
-    if(choice.strip().lower() == "exit"):
+    if "exit" in choice:
         sys.exit()
     #Done
-    if(choice.strip().lower() == "start"):
+    if "start" in choice:
         return True
-    #Done
-    if(part.strip().lower() == "grab"):
-        item = choice[5:]
+    #
+    if "grab" in choice:
+        i = 0
+        for x in current.contents_:
+            if current.contents_[i].getName() in choice:
+                item = current.contents_[i].getName()
+            i+=1
         if(current.searchContents(item)):
             player.addInv(searchItems(current, item))
             current.removeContents(searchItems(current, item))
         print("You have successfully added " + item + " to your invnetory!")
     #Done
-    if(choice.strip().lower() == "save"):
+    if "save" in choice:
         f = open("e:/Projects/text_game/game/save.txt", "w")
         i = 0
         length = len(player.inventory_)
@@ -114,23 +112,31 @@ def getChoice(choice, player, rooms):
         f.write(player.name_)
         f.close()
     #Done
-    if(choice.strip().lower() == "load"):
+    if "load" in choice:
         f = open("e:/Projects/text_game/game/save.txt")
         lines = f.readlines()
         f.close()
         return lines
     #Done
-    if(part2.strip().lower() == "equip"):
-        item = choice[6:]
+    if "equip" in choice:
+        i = 0
+        for x in current.contents_:
+            if current.contents_[i].getName() in choice:
+                item = current.contents_[i].getName()
+            i+=1
         player.equipItem(item)
         print("You equiped the " + item)
     #Done
-    if(choice.strip().lower() == "in use"):
+    if "in use" in choice:
         player.checkEquiped()
     
-    if(attack.strip().lower() == "attack"):
-        enemyName = choice[7:]
-        
+    if "attack" in choice:
+        enemyName = ""
+        i = 0
+        for x in current.enemies_:
+            if current.enemies_[i].getName() in choice:
+                enemyName = current.enemies_[i].getName()
+            i+=1
         if(current.searchEnemies(enemyName) == False):
             print("There is nothing here with that name.")
         else:
@@ -152,7 +158,7 @@ def getChoice(choice, player, rooms):
                 if(block == False):
                     player.lowerHealth(enemy.attack())
     
-    if(choice.strip().lower() == "enemies"):
+    if "enemies" in choice:
         current.getEnemies()
 
 def searchRooms(roomsIndex, room):

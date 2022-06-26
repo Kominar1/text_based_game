@@ -1,5 +1,4 @@
-1
-gun
-60
-hallway2
-Playe
+0
+100
+cell
+Player

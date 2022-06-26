@@ -8,12 +8,12 @@ choice = input()
 
 #Creating objects
 player = Player("Player", "basement")
-basement = Room("basement", 1, "null", "null", "hallway", "null")
-hallway = Room("hallway", 2, "null", "bedroom", "hallway2", "basement")
-bedroom = Room("bedroom", 3, "hallway", "null", "null", "null")
-hallway2 = Room("hallway2", 4, "cell", "null", "warproom", "hallway")
+basement = Room("basement", 1, "null", "null", "corridor", "null")
+corridor = Room("corridor", 2, "null", "bedroom", "hallway", "basement")
+bedroom = Room("bedroom", 3, "corridor", "null", "null", "null")
+hallway = Room("hallway", 4, "cell", "null", "warproom", "hallway")
 cell = Room("cell", 5, "hallway2", "null", "null", "null")
-rooms = [basement, hallway, bedroom, hallway2, cell]
+rooms = [basement, corridor, bedroom, hallway, cell]
 flashlight = Item("flashlight", 5)
 knife = Item("knife", 12)
 bat = Item("bat", 15)
