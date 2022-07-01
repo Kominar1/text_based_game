@@ -29,6 +29,7 @@ def printHelp():
 def getChoice(choice, player, rooms):
     current = searchRooms(rooms, player.getCurrentRoom())
     choice = choice.strip().lower()
+    item = ""
     #Done
     if "help" in choice:
         printHelp()
@@ -114,14 +115,13 @@ def getChoice(choice, player, rooms):
         f.close()
     #Done
     if "load" in choice:
-        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
+        f = open("e:/Projects/text_game/game/save.txt")
         lines = f.readlines()
         f.close()
         return lines
     #Done
     if "equip" in choice:
         if "un" not in choice:
-            item = ""
             i = 0
             for x in current.contents_:
                 if current.contents_[i].getName() in choice:
