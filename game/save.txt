@@ -1,9 +1,6 @@
-5
+2
 flashlight
 bat
-knife
-flashlight
-gun
 100
-cell
+corridor
 Player

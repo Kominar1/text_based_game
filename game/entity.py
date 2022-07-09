@@ -33,14 +33,12 @@ class Player(Entity):
         print("You've been hit! Your health is now at " + str(self.getHealth()) + ".")
     #Inventory functions
     def showInv(self):
-        i = 0
         if not self.inventory_:
             print("Your inventory is empty.")
         else:
             print("///////////////////////////////////////////////////////")
-            for x in self.inventory_:
+            for i in range(len(self.inventory_)):
                 print(self.inventory_[i].getName())
-                i+=1
             print("///////////////////////////////////////////////////////")    
     def searchInv(self, item):
         if item in self.inventory_:
@@ -56,21 +54,18 @@ class Player(Entity):
 
     #Equip functions
     def searchItem(self, item):
-        i = 0
-        for x in self.inventory_:
+        for i in range(len(self.inventory_)):
             if(self.inventory_[i].getName() == item):
                 return self.inventory_[i]
-            i+=1
     def equipItem(self, item):
         print(item)
         itemEquiped = self.searchItem(item)
         if(self.searchInv(itemEquiped)):
             self.equiped_ = itemEquiped
+            print("You equiped the " + self.equiped_.getName())
         else:
             print("You don't have this item in your inventory.")
-    def unequip(self):
-        self.equiped_ = Item("blank", 1)
-        print("You have unequiped your item.")
+    
     def checkEquiped(self):
         print("You have the " + self.equiped_.getName() + " equiped.")
     

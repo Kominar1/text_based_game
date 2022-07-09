@@ -102,7 +102,7 @@ def getChoice(choice, player, rooms):
         print("You have successfully added " + item + " to your invnetory!")
     #Done
     if "save" in choice:
-        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
+        f = open("E:/Projects/text_game/game/save.txt", "w")
         i = 0
         length = len(player.inventory_)
         f.write(str(length) + "\n")
@@ -121,25 +121,20 @@ def getChoice(choice, player, rooms):
         return lines
     #Done
     if "equip" in choice:
-        if "un" not in choice:
-            i = 0
-            for x in current.contents_:
-                if current.contents_[i].getName() in choice:
-                    item = current.contents_[i].getName()
-                i+=1
+        for i in range(len(player.inventory_)):
+            if player.inventory_[i].getName() in choice:
+                item = player.inventory_[i].getName()
+        if item in choice:
             player.equipItem(item)
-            print("You equiped the " + item)
     #Done
     if "in use" in choice:
         player.checkEquiped()
     
     if "attack" in choice:
         enemyName = ""
-        i = 0
-        for x in current.enemies_:
+        for i in range(len(current.enemies_)):
             if current.enemies_[i].getName() in choice:
                 enemyName = current.enemies_[i].getName()
-            i+=1
         if(current.searchEnemies(enemyName) == False):
             print("There is nothing here with that name.")
         else:
@@ -164,25 +159,17 @@ def getChoice(choice, player, rooms):
     if "enemies" in choice:
         current.getEnemies()
 
-    if "unequip" in choice:
-        if(choice == "unequip"):
-            player.unequip()
-
 def searchRooms(roomsIndex, room):
-    i = 0
-    for x in roomsIndex:
+    for i in range(len(roomsIndex)):
         if (roomsIndex[i].getName() == room):
             this = roomsIndex[i]
             return this
-        i+=1
 
 def searchItems(room, item):
-    i = 0
-    for x in room.contents_:
+    for i in range(len(room.contents_)):
         if (room.contents_[i].getName() == item):
             this = room.contents_[i]
             return this
-        i+=1
 
 def getItem(player, rooms, item):
     current = searchRooms(rooms, player.getCurrentRoom())

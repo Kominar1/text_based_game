@@ -35,11 +35,9 @@ class Room:
             print(self.contents_[i].getName())
             i+=1
     def searchContents(self, item):
-        i = 0
-        for x in self.contents_:
+        for i in range(len(self.contents_)):
             if (self.contents_[i].getName() == item):
                 return True
-            i+=1
     def removeContents(self, item):
         self.contents_.remove(item)
 
@@ -47,18 +45,14 @@ class Room:
     def addEnemy(self, enemy):
         self.enemies_.append(enemy)
     def getEnemies(self):
-        i = 0
-        for x in self.enemies_:
-            print(self.enemies_[i].getName())
-            i+=1   
+        for i in range(len(self.enemies_)):
+            print(self.enemies_[i].getName()) 
     def removeEnemies(self, enemy):
         self.enemies_.remove(enemy)
     def searchEnemies(self, name):
-        i = 0
-        for x in self.enemies_:
+        for i in range(len(self.enemies_)):
             if (self.enemies_[i].getName() == name):
                 return self.enemies_[i]
-            i+=1
         return False
     
     #Description functions
