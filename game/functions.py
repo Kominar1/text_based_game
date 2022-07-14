@@ -1,6 +1,9 @@
 import time
 import sys
 
+#Windows path: e:/Projects/text_game/game/save.txt
+#Linux path: /home/kominar/Visual Studio/Projects/text_game/game/save.txt
+
 def delay_print(text):
     for c in text:
         sys.stdout.write(c)
@@ -26,7 +29,7 @@ def printHelp():
     print("Enemies: Gives you a list of enemies you can attack.")
     print("Start: Starts the game.")
 
-def getChoice(choice, player, rooms):
+def getChoice(choice, player, rooms, items):
     current = searchRooms(rooms, player.getCurrentRoom())
     choice = choice.strip().lower()
     item = ""
@@ -102,7 +105,7 @@ def getChoice(choice, player, rooms):
         print("You have successfully added " + item + " to your invnetory!")
     #Done
     if "save" in choice:
-        f = open("E:/Projects/text_game/game/save.txt", "w")
+        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
         i = 0
         length = len(player.inventory_)
         f.write(str(length) + "\n")
@@ -111,14 +114,34 @@ def getChoice(choice, player, rooms):
             i+=1
         f.write(str(player.getHealth()) + "\n")
         f.write(player.getCurrentRoom() + "\n")
-        f.write(player.name_)
+        f.write(player.name_ + "\n")
+        f.write(player.equiped_.getName())
         f.close()
     #Done
     if "load" in choice:
-        f = open("e:/Projects/text_game/game/save.txt")
+        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
         lines = f.readlines()
         f.close()
-        return lines
+        lineLength = int(lines[0])
+        itemsLength = len(items)
+        i=1
+        while(i <= lineLength):
+            j = 0
+            while(j<itemsLength):
+                if(items[j].getName() == lines[i].strip().lower()):
+                    player.addInv(items[j])
+                    break
+                else:
+                    j+=1
+            i+=1
+        lineLength+=1
+        player.setHealth = int(lines[lineLength][:-1])
+        lineLength+=1
+        player.setCurrentRoom(lines[lineLength][:-1])
+        lineLength+=1
+        player.setName(lines[lineLength][:-1])
+        lineLength+=1
+        player.equipItem(searchItems(lines[lineLength][:-1]))
     #Done
     if "equip" in choice:
         for i in range(len(player.inventory_)):

@@ -32,31 +32,8 @@ cell.addEnemy(entity)
 
 dead = False
 first = True
-
-#Loading a saved game
-if "load" in choice:
-    lines = getChoice(choice, player, rooms)
-    lineLength = int(lines[0])
-    itemsLength = len(items)
-    print(itemsLength)
-    i=1
-    while(i <= lineLength):
-        j = 0
-        while(j<itemsLength):
-            if(items[j].getName() == lines[i].strip().lower()):
-                player.addInv(items[j])
-                break
-            else:
-                j+=1
-        i+=1
-    lineLength+=1
-    player.setHealth = int(lines[lineLength][:-1])
-    lineLength+=1
-    player.setCurrentRoom(lines[lineLength][:-1])
-    lineLength+=1
-    player.setName(lines[lineLength][:-1])
     
-if getChoice(choice, player, rooms):
+if getChoice(choice, player, rooms, items):
     while(dead != True):
         currentRoom = searchRooms(rooms, player.getCurrentRoom())
         if(first == True):
@@ -65,4 +42,4 @@ if getChoice(choice, player, rooms):
         choice = input()
         if(choice[0:4].strip().lower() == "move"):
             first = True
-        getChoice(choice, player, rooms)
+        getChoice(choice, player, rooms, items)

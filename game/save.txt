@@ -4,3 +4,4 @@ bat
 100
 corridor
 Player
+flashlight
