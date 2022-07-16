@@ -1,7 +1,9 @@
-2
+4
 flashlight
 bat
+knife
+health stim
 100
-corridor
+cell
 Player
 flashlight

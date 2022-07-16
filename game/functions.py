@@ -102,7 +102,7 @@ def getChoice(choice, player, rooms, items):
         if(current.searchContents(item)):
             player.addInv(searchItems(current, item))
             current.removeContents(searchItems(current, item))
-        print("You have successfully added " + item + " to your invnetory!")
+        print("You have successfully added " + item + " to your inventory!")
     #Done
     if "save" in choice:
         f = open("e:/Projects/text_game/game/save.txt", "w")
@@ -184,6 +184,9 @@ def getChoice(choice, player, rooms, items):
     if "enemies" in choice:
         current.getEnemies()
 
+    if "heal" in choice:
+        if choice == "heal":
+            player.heal()
 def searchRooms(roomsIndex, room):
     for i in range(len(roomsIndex)):
         if (roomsIndex[i].getName() == room):

@@ -26,11 +26,12 @@ class Player(Entity):
     def __init__(self, name, currentRoom):
         super().__init__(name, currentRoom)
         self.inventory_ = []
-        self.equiped_ = Item("blank", 1)
+        self.equiped_ = Weapon("blank", 1)
 
     def lowerHealth(self, damage):
         self.health_ -= damage
         print("You've been hit! Your health is now at " + str(self.getHealth()) + ".")
+    
     #Inventory functions
     def showInv(self):
         if not self.inventory_:
@@ -45,6 +46,8 @@ class Player(Entity):
             return True
     def addInv(self, item):
         self.inventory_.append(item)
+    def removeInv(self, item):
+        self.inventory_.remove(item)
 
     #Room functions
     def getCurrentRoom(self):
@@ -76,6 +79,19 @@ class Player(Entity):
         return True
     def setName(self, name):
         self.name_ = name
+    def heal(self):
+        healthStim = self.searchItem("health stim")
+        if self.searchInv(healthStim):
+            if self.getHealth() == 100:
+                print("You are already at full health!")
+            else:
+                self.raiseHealth(healthStim.getHealing())
+                if self.getHealth() > 100:
+                    self.health_ = 100
+                self.removeInv(healthStim)
+                print("You used a health stim! Health now at " + str(self.getHealth()) + ".\n")
+        else:
+            print("You don't have any health stims in your inventory.\n")
 
 class Enemy(Entity):
     def __init__(self, name, currentRoom, attack, dodgeChance):
