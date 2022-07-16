@@ -105,7 +105,7 @@ def getChoice(choice, player, rooms, items):
         print("You have successfully added " + item + " to your invnetory!")
     #Done
     if "save" in choice:
-        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt", "w")
+        f = open("e:/Projects/text_game/game/save.txt", "w")
         i = 0
         length = len(player.inventory_)
         f.write(str(length) + "\n")
@@ -115,11 +115,11 @@ def getChoice(choice, player, rooms, items):
         f.write(str(player.getHealth()) + "\n")
         f.write(player.getCurrentRoom() + "\n")
         f.write(player.name_ + "\n")
-        f.write(player.equiped_.getName())
+        f.write(player.equiped_.getName() + "\n")
         f.close()
     #Done
     if "load" in choice:
-        f = open("/home/kominar/Visual Studio/Projects/text_game/game/save.txt")
+        f = open("e:/Projects/text_game/game/save.txt")
         lines = f.readlines()
         f.close()
         lineLength = int(lines[0])
@@ -135,13 +135,15 @@ def getChoice(choice, player, rooms, items):
                     j+=1
             i+=1
         lineLength+=1
+        #get the sting and delete the \n from it
         player.setHealth = int(lines[lineLength][:-1])
         lineLength+=1
         player.setCurrentRoom(lines[lineLength][:-1])
         lineLength+=1
         player.setName(lines[lineLength][:-1])
         lineLength+=1
-        player.equipItem(searchItems(lines[lineLength][:-1]))
+        player.equipItem(lines[lineLength][:-1])
+        return True
     #Done
     if "equip" in choice:
         for i in range(len(player.inventory_)):

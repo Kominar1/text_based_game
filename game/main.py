@@ -15,10 +15,11 @@ bedroom = Room("bedroom", 3, "corridor", "null", "null", "null")
 hallway = Room("hallway", 4, "cell", "null", "warproom", "hallway")
 cell = Room("cell", 5, "hallway2", "null", "null", "null")
 rooms = [basement, corridor, bedroom, hallway, cell]
-flashlight = Item("flashlight", 5)
-knife = Item("knife", 12)
-bat = Item("bat", 15)
-gun = Item("gun", 30)
+flashlight = Weapon("flashlight", 5)
+knife = Weapon("knife", 12)
+bat = Weapon("bat", 15)
+gun = Weapon("gun", 30)
+healthStim = HealthStim("health stim", 30)
 items = [flashlight, knife, bat, gun]
 entity = Enemy("distorted", "cell", 10, 100)
 
@@ -28,6 +29,7 @@ corridor.addContents(bat)
 bedroom.addContents(flashlight)
 bedroom.addContents(knife)
 cell.addContents(gun)
+cell.addContents(healthStim)
 cell.addEnemy(entity)
 
 dead = False
