@@ -1,22 +1,25 @@
 class Item:
-    def __init__(self, name):
+    def __init__(self, name, attribute):
         self.name_= name
+        self.attribute_ = attribute
 
     def getName(self):
         return self.name_
 
+    def getAttribute(self):
+        return self.attribute_
+
+    def check(self):
+        pass
+
 class Weapon(Item):
-    def __init__(self, name, damage):
-        super().__init__(name)
-        self.damage_ = damage
-
-    def getItemDamage(self):
-        return self.damage_
-
+    def check(self):
+        print("This weapon does " + str(self.getAttribute()) + " damage.")
+    
 class HealthStim(Item):
-    def __init__(self, name, healing):
-        super().__init__(name)
-        self.healing_ = healing
+    def check(self):
+        print("This health stim restores " + str(self.getAttribute()) + " hp.")
 
-    def getHealing(self):
-        return self.healing_
+class Armor(Item):
+    def check(self):
+        print("Your armor takes away " + str(self.getAttribute() * 100) + "% of the damage taken.")

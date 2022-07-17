@@ -1,9 +1,7 @@
-4
+2
 flashlight
-bat
-knife
-health stim
+helmet
 100
-cell
+corridor
 Player
-flashlight
+blank

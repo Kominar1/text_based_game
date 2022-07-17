@@ -20,13 +20,14 @@ def printHelp():
     print("Look: Tells you some aditional information about the space.")
     print("Available: List of rooms available to move to.")
     print("Current: Tells the name of the current room you are in.")
-    print("Exit: Leaves the game.")
-    print("Load: Loads previous save.")
     print("Save: Saves current game.")
+    print("Load: Loads previous save.")
     print("Equip: Lets you equip an item from your inventory.")
     print("In Use: Lets you check which item you have equiped.")
+    print("Check: Lets you check the amount of damage or healing or protection an item gives you.")
     print("Attack: Lets you attack an enemy by typing attack and then the name of the enemy.")
     print("Enemies: Gives you a list of enemies you can attack.")
+    print("Exit: Leaves the game.")
     print("Start: Starts the game.")
 
 def getChoice(choice, player, rooms, items):
@@ -38,7 +39,8 @@ def getChoice(choice, player, rooms, items):
         printHelp()
     #Done
     if "health" in choice:
-        print("Your health is at: " + str(player.getHealth()))
+        if choice == "health":
+            print("Your health is at: " + str(player.getHealth()))
     #Done
     if "inventory" in choice:
         player.showInv()
@@ -91,7 +93,7 @@ def getChoice(choice, player, rooms, items):
     #Done
     if "start" in choice:
         return True
-    #
+    #Done
     if "grab" in choice:
         item = ""
         i = 0
@@ -154,7 +156,7 @@ def getChoice(choice, player, rooms, items):
     #Done
     if "in use" in choice:
         player.checkEquiped()
-    
+    #need to rework
     if "attack" in choice:
         enemyName = ""
         for i in range(len(current.enemies_)):
@@ -183,10 +185,22 @@ def getChoice(choice, player, rooms, items):
     #Done
     if "enemies" in choice:
         current.getEnemies()
-
+    #Done
     if "heal" in choice:
         if choice == "heal":
             player.heal()
+    #Done
+    if "check" in choice:
+        i = 0
+        for x in player.inventory_:
+            if player.inventory_[i].getName() in choice:
+                item = player.inventory_[i]
+            i+=1
+        if item == '':
+            print("This item is not in your inventory.")
+        else:
+            item.check()
+
 def searchRooms(roomsIndex, room):
     for i in range(len(roomsIndex)):
         if (roomsIndex[i].getName() == room):

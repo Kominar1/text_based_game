@@ -27,9 +27,13 @@ class Player(Entity):
         super().__init__(name, currentRoom)
         self.inventory_ = []
         self.equiped_ = Weapon("blank", 1)
+        self.armor_ = Armor("Blank", 0)
 
     def lowerHealth(self, damage):
-        self.health_ -= damage
+        if self.armor_.getName != "Blank":
+            blocked = damage * self.armor_.getProtection()
+            damage -= blocked
+            self.health_ -= damage
         print("You've been hit! Your health is now at " + str(self.getHealth()) + ".")
     
     #Inventory functions
@@ -73,7 +77,7 @@ class Player(Entity):
         print("You have the " + self.equiped_.getName() + " equiped.")
     
     def attack(self):
-        return self.equiped_.getItemDamage()    
+        return self.equiped_.getAttribute()    
     def block(self):
         print("You blocked the attack!")
         return True
@@ -86,10 +90,10 @@ class Player(Entity):
                 print("You are already at full health!")
             else:
                 self.raiseHealth(healthStim.getHealing())
-                if self.getHealth() > 100:
+                if self.getAttribute() > 100:
                     self.health_ = 100
                 self.removeInv(healthStim)
-                print("You used a health stim! Health now at " + str(self.getHealth()) + ".\n")
+                print("You used a health stim! Health now at " + str(self.getAttribute()) + ".\n")
         else:
             print("You don't have any health stims in your inventory.\n")
 
