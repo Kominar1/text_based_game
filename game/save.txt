@@ -1,7 +1,9 @@
-2
+3
 flashlight
+bat
 helmet
 100
 corridor
 Player
-blank
+bat
+helmet

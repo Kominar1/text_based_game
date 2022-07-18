@@ -1,5 +1,7 @@
+from asyncio.windows_events import NULL
 from item import *
 import random
+import inspect
 
 class Entity:
     def __init__(self, name, currentRoom):
@@ -26,12 +28,12 @@ class Player(Entity):
     def __init__(self, name, currentRoom):
         super().__init__(name, currentRoom)
         self.inventory_ = []
-        self.equiped_ = Weapon("blank", 1)
-        self.armor_ = Armor("Blank", 0)
+        self.weapon_ = Weapon("blank", 1)
+        self.armor_ = Armor("blank", 0)
 
     def lowerHealth(self, damage):
         if self.armor_.getName != "Blank":
-            blocked = damage * self.armor_.getProtection()
+            blocked = damage * self.armor_.getAttribute()
             damage -= blocked
             self.health_ -= damage
         print("You've been hit! Your health is now at " + str(self.getHealth()) + ".")
@@ -65,17 +67,43 @@ class Player(Entity):
             if(self.inventory_[i].getName() == item):
                 return self.inventory_[i]
     def equipItem(self, item):
-        print(item)
         itemEquiped = self.searchItem(item)
-        if(self.searchInv(itemEquiped)):
-            self.equiped_ = itemEquiped
-            print("You equiped the " + self.equiped_.getName())
+        if isinstance(itemEquiped, Weapon):
+            if self.searchInv(itemEquiped):
+                self.weapon_ = itemEquiped
+                print("You equiped the " + self.weapon_.getName())
+            else:
+                print("You don't have this item in your inventory.")
         else:
-            print("You don't have this item in your inventory.")
-    
+            if(self.searchInv(item)):
+                self.weapon_ = item
+                print("You equiped the " + self.weapon_.getName())
+            else:
+                print("You don't have this item in your inventory.")
     def checkEquiped(self):
-        print("You have the " + self.equiped_.getName() + " equiped.")
-    
+        if self.weapon_.getName() == "blank":
+            print("You don't have any weapon equiped right now.")
+        else:
+            print("You have the " + self.weapon_.getName() + " equiped.")
+        if self.armor_.getName() == "blank":
+            print("You don't have any armor on right now.")
+        else:
+            print("You have the " + self.armor_.getName() + " on.")
+    def putOnArmor(self, armor):
+        armorEquiped = self.searchItem(armor)
+        if isinstance(armorEquiped, Armor):
+            if self.searchInv(armorEquiped):
+                self.armor_ = armorEquiped
+                print("You put the " + self.armor_.getName() + " on!")
+            else:
+                print("You don't have this in your inventory.")
+        else:
+            if self.searchInv(armor):
+                self.armor_ = armor
+                print("You put the " + self.armor_.getName() + " on!")
+            else:
+                print("You don't have this in your inventory.")
+
     def attack(self):
         return self.equiped_.getAttribute()    
     def block(self):

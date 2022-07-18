@@ -1,5 +1,6 @@
 import time
 import sys
+from item import *
 
 #Windows path: e:/Projects/text_game/game/save.txt
 #Linux path: /home/kominar/Visual Studio/Projects/text_game/game/save.txt
@@ -22,10 +23,11 @@ def printHelp():
     print("Current: Tells the name of the current room you are in.")
     print("Save: Saves current game.")
     print("Load: Loads previous save.")
-    print("Equip: Lets you equip an item from your inventory.")
-    print("In Use: Lets you check which item you have equiped.")
-    print("Check: Lets you check the amount of damage or healing or protection an item gives you.")
-    print("Attack: Lets you attack an enemy by typing attack and then the name of the enemy.")
+    print("Equip: Let's you equip a weapon from your inventory.")
+    print("Put on: Let's you put on a piece of armor.")
+    print("In Use: Let's you check which item you have equiped.")
+    print("Check: Let's you check the amount of damage or healing or protection an item gives you.")
+    print("Attack: Let's you attack an enemy by typing attack and then the name of the enemy.")
     print("Enemies: Gives you a list of enemies you can attack.")
     print("Exit: Leaves the game.")
     print("Start: Starts the game.")
@@ -95,16 +97,12 @@ def getChoice(choice, player, rooms, items):
         return True
     #Done
     if "grab" in choice:
-        item = ""
-        i = 0
-        for x in current.contents_:
-            if current.contents_[i].getName() in choice:
-                item = current.contents_[i].getName()
-            i+=1
-        if(current.searchContents(item)):
-            player.addInv(searchItems(current, item))
-            current.removeContents(searchItems(current, item))
-        print("You have successfully added " + item + " to your inventory!")
+        item = getItemInRoom(current, choice)
+        if isinstance(item, Weapon) or isinstance(item, Armor):
+            if(current.searchContents(item.getName())):
+                player.addInv(item)
+                current.removeContents(item)
+            print("You have successfully added " + item.getName() + " to your inventory!")
     #Done
     if "save" in choice:
         f = open("e:/Projects/text_game/game/save.txt", "w")
@@ -117,8 +115,10 @@ def getChoice(choice, player, rooms, items):
         f.write(str(player.getHealth()) + "\n")
         f.write(player.getCurrentRoom() + "\n")
         f.write(player.name_ + "\n")
-        f.write(player.equiped_.getName() + "\n")
+        f.write(player.weapon_.getName() + "\n")
+        f.write(player.armor_.getName() + "\n")
         f.close()
+        print("You successfully saved the game!")
     #Done
     if "load" in choice:
         f = open("e:/Projects/text_game/game/save.txt")
@@ -144,14 +144,16 @@ def getChoice(choice, player, rooms, items):
         lineLength+=1
         player.setName(lines[lineLength][:-1])
         lineLength+=1
-        player.equipItem(lines[lineLength][:-1])
+        if lines[lineLength][:-1] != "blank":
+            player.equipItem(lines[lineLength][:-1])
+        lineLength+=1
+        if lines[lineLength][:-1] != "blank":
+            player.putOnArmor(lines[lineLength][:-1])
         return True
     #Done
     if "equip" in choice:
-        for i in range(len(player.inventory_)):
-            if player.inventory_[i].getName() in choice:
-                item = player.inventory_[i].getName()
-        if item in choice:
+        item = getItemInInventory(player, choice)
+        if item.getName() in choice:
             player.equipItem(item)
     #Done
     if "in use" in choice:
@@ -191,31 +193,28 @@ def getChoice(choice, player, rooms, items):
             player.heal()
     #Done
     if "check" in choice:
-        i = 0
-        for x in player.inventory_:
-            if player.inventory_[i].getName() in choice:
-                item = player.inventory_[i]
-            i+=1
-        if item == '':
+        item = getItemInInventory(player, choice)
+        if item.getName() == '':
             print("This item is not in your inventory.")
         else:
             item.check()
 
+    if "put on" in choice:
+        item = getItemInInventory(player, choice)
+        player.putOnArmor(item)
+
 def searchRooms(roomsIndex, room):
     for i in range(len(roomsIndex)):
         if (roomsIndex[i].getName() == room):
-            this = roomsIndex[i]
-            return this
+            return roomsIndex[i]
 
-def searchItems(room, item):
+def getItemInRoom(room, choice):
     for i in range(len(room.contents_)):
-        if (room.contents_[i].getName() == item):
-            this = room.contents_[i]
-            return this
+        if room.contents_[i].getName() in choice:
+            return room.contents_[i]
 
-def getItem(player, rooms, item):
-    current = searchRooms(rooms, player.getCurrentRoom())
-    currentItem = searchItems(current, item)
-    if current.searchContents(currentItem):
-        current.removeContents(currentItem)
-        player.addInv(currentItem)
+def getItemInInventory(player, choice):
+   for i in range(len(player.inventory_)):
+        if player.inventory_[i].getName() in choice:
+            return player.inventory_[i]
+            

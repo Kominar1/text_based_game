@@ -50,7 +50,9 @@ if getChoice(choice, player, rooms, items):
             currentRoom.getDiscription()
             first = False
         choice = input()
-        if(choice[0:4].strip().lower() == "move"):
+        if "move" in choice:
+            first = True
+        if "load" in choice:
             first = True
         getChoice(choice, player, rooms, items)
     if dead:
