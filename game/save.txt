@@ -1,9 +1,12 @@
-3
+6
 flashlight
 bat
 helmet
+knife
+gun
+health stim
 100
-corridor
+cell
 Player
 bat
 helmet

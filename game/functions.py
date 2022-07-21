@@ -53,26 +53,24 @@ def getChoice(choice, player, rooms, items):
     if "move" in choice:
         #Get the room from the string
         if player.getCurrentRoom() in choice:
-            delay_print("You are already in this room.\n") 
-            choice = input()
-            getChoice(choice, player, rooms)
+            print("You are already in this room.\n") 
 
         if current.getTheRight() in choice:
             player.setCurrentRoom(current.getTheRight())
-
-        if current.getTheLeft() in choice:
+        elif current.getTheLeft() in choice:
             player.setCurrentRoom(current.getTheLeft())
-
-        if current.getAhead() in choice:
+        elif current.getAhead() in choice:
             player.setCurrentRoom(current.getAhead())
-
-        if current.getBehind() in choice:
+        elif current.getBehind() in choice:
             player.setCurrentRoom(current.getBehind())
+        else:
+            print("There is no room by that name available.")
     #Done
     if "look" in choice:
         print(current.getLook())
     #Done
     if "available" in choice:
+        print("Rooms that you can move to are: ")
         if(current.getTheRight() != "null"):
             print(current.getTheRight())
 
@@ -84,8 +82,6 @@ def getChoice(choice, player, rooms, items):
 
         if(current.getBehind() != "null"):
             print(current.getBehind())
-        choice = input()
-        getChoice(choice, player, rooms)
     #Done
     if "current" in choice:
         print("You are currently in the " + player.getCurrentRoom() + ".")
@@ -98,11 +94,15 @@ def getChoice(choice, player, rooms, items):
     #Done
     if "grab" in choice:
         item = getItemInRoom(current, choice)
-        if isinstance(item, Weapon) or isinstance(item, Armor):
-            if(current.searchContents(item.getName())):
+        if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, HealthStim):
+            if player.searchInv(item):
+                print("You already have this item in your inventory.")
+            elif current.searchContents(item.getName()):
                 player.addInv(item)
                 current.removeContents(item)
-            print("You have successfully added " + item.getName() + " to your inventory!")
+                print("You have successfully added " + item.getName() + " to your inventory!")
+        else:
+            print("There is no item here by that name.")
     #Done
     if "save" in choice:
         f = open("e:/Projects/text_game/game/save.txt", "w")
@@ -169,23 +169,23 @@ def getChoice(choice, player, rooms, items):
         else:
             enemy = current.searchEnemies(enemyName)
             flee = False
-            block = False
             while(player.checkIfDead() == False and enemy.checkIfDead() == False and flee == False):
                 block = False
                 #Do you want to attack block or flee
                 print("Would you like to attack, block or flee?")
                 choice = input()
-                if(choice.strip().lower() == "attack"):
+                if "attack" in choice:
                     enemy.lowerHealth(player.attack())
-                elif(choice.strip().lower() == "block"):
+                elif "block" in choice:
                     block = player.block()                
-                elif(choice.strip().lower() == "flee"):
+                elif "flee" in choice:
                     flee = True
 
                 if(block == False):
                     player.lowerHealth(enemy.attack())
     #Done
     if "enemies" in choice:
+        print("Current enemies in the room are: ")
         current.getEnemies()
     #Done
     if "heal" in choice:

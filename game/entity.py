@@ -1,7 +1,6 @@
 from asyncio.windows_events import NULL
 from item import *
 import random
-import inspect
 
 class Entity:
     def __init__(self, name, currentRoom):
@@ -71,13 +70,13 @@ class Player(Entity):
         if isinstance(itemEquiped, Weapon):
             if self.searchInv(itemEquiped):
                 self.weapon_ = itemEquiped
-                print("You equiped the " + self.weapon_.getName())
+                print("You equiped the " + self.weapon_.getName() + "!")
             else:
                 print("You don't have this item in your inventory.")
         else:
             if(self.searchInv(item)):
                 self.weapon_ = item
-                print("You equiped the " + self.weapon_.getName())
+                print("You equiped the " + self.weapon_.getName() + "!")
             else:
                 print("You don't have this item in your inventory.")
     def checkEquiped(self):
@@ -105,7 +104,7 @@ class Player(Entity):
                 print("You don't have this in your inventory.")
 
     def attack(self):
-        return self.equiped_.getAttribute()    
+        return self.weapon_.getAttribute()    
     def block(self):
         print("You blocked the attack!")
         return True
@@ -131,8 +130,12 @@ class Enemy(Entity):
         self.attack_ = attack
         self.dodgeChance_ = dodgeChance
 
+    #add a chance for an attack that does damage and a half
     def attack(self):
-        return self.attack_
+        if self.dodgeChance() == 2:
+            return self.attack_ * 2
+        else:
+            return self.attack_
 
     def dodgeChance(self):
         return random.randrange(1, self.dodgeChance_, 1)

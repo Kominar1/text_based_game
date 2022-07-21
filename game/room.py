@@ -24,6 +24,8 @@ class Room:
         self.toTheLeft_ = toTheLeft
         self.upAhead_ = upAhead
         self.behind_ = behind
+        self.alt1_ = False
+        self.alt2_ = False
         
     #Contents fucntions
     def addContents(self, item):
@@ -60,15 +62,17 @@ class Room:
         with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
             lines = f.readlines()
             delay_print(lines)
+        f.close()
     def getLook(self):
         with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
             lines = f.readlines()
             delay_print(lines)
+        f.close()
     def getLookAlt(self):
         with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt.txt') as f:
             lines = f.readlines()
             delay_print(lines)
-
+        f.close()
     #Adjasent room functions
     def getTheRight(self):
         return self.toTheRight_
@@ -86,13 +90,3 @@ class Room:
             return True
         else:
             return False
-
-    roomName_ = ""
-    roomId_ = 0
-    contents_ = []
-    enemies_ = []
-    #What rooms you can move to
-    toTheRight_ = ""
-    toTheLeft_ = ""
-    upAhead_ = ""
-    behind_ = ""

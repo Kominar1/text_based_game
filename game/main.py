@@ -14,8 +14,8 @@ player = Player("Player", "basement")
 basement = Room("basement", 1, "null", "null", "corridor", "null")
 corridor = Room("corridor", 2, "null", "bedroom", "hallway", "basement")
 bedroom = Room("bedroom", 3, "corridor", "null", "null", "null")
-hallway = Room("hallway", 4, "cell", "null", "warproom", "hallway")
-cell = Room("cell", 5, "hallway2", "null", "null", "null")
+hallway = Room("hallway", 4, "cell", "null", "null", "corridor")
+cell = Room("cell", 5, "null", "null", "null", "hallway")
 rooms = [basement, corridor, bedroom, hallway, cell]
 
 #Creating items
