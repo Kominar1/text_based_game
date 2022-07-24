@@ -26,7 +26,7 @@ class Room:
         self.behind_ = behind
         self.alt1_ = False
         self.alt2_ = False
-        
+
     #Contents fucntions
     def addContents(self, item):
         self.contents_.append(item)
@@ -42,6 +42,11 @@ class Room:
                 return True
     def removeContents(self, item):
         self.contents_.remove(item)
+        if item.getNum() == 1:
+            self.alt1_ = True
+        elif item.getNum() == 2:
+            self.alt2_ = True
+        
 
     #Enemy functions
     def addEnemy(self, enemy):
@@ -64,15 +69,27 @@ class Room:
             delay_print(lines)
         f.close()
     def getLook(self):
-        with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
-            lines = f.readlines()
-            delay_print(lines)
-        f.close()
-    def getLookAlt(self):
-        with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt.txt') as f:
-            lines = f.readlines()
-            delay_print(lines)
-        f.close()
+        if self.alt1_ == True and self.alt2_ == False:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt1.txt') as f:
+                lines = f.readlines()
+                delay_print(lines)
+            f.close()
+        elif self.alt2_ == True and self.alt1_ == False:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt2.txt') as f:
+                lines = f.readlines()
+                delay_print(lines)
+            f.close()
+        elif self.alt1_ == True and self.alt2_ == True:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt3.txt') as f:
+                lines = f.readlines()
+                delay_print(lines)
+            f.close()
+        elif self.alt1_ == False and self.alt2_ == False:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
+                lines = f.readlines()
+                delay_print(lines)
+            f.close()
+
     #Adjasent room functions
     def getTheRight(self):
         return self.toTheRight_

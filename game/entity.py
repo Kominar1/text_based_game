@@ -27,8 +27,8 @@ class Player(Entity):
     def __init__(self, name, currentRoom):
         super().__init__(name, currentRoom)
         self.inventory_ = []
-        self.weapon_ = Weapon("blank", 1)
-        self.armor_ = Armor("blank", 0)
+        self.weapon_ = Weapon("blank", 1, 0)
+        self.armor_ = Armor("blank", 0, 0)
 
     def lowerHealth(self, damage):
         if self.armor_.getName != "Blank":

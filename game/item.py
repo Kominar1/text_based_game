@@ -1,7 +1,8 @@
 class Item:
-    def __init__(self, name, attribute):
+    def __init__(self, name, attribute, itemNum):
         self.name_= name
         self.attribute_ = attribute
+        self.itemNum_ = itemNum
 
     def getName(self):
         return self.name_
@@ -11,6 +12,9 @@ class Item:
 
     def check(self):
         pass
+    
+    def getNum(self):
+        return self.itemNum_
 
 class Weapon(Item):
     def check(self):

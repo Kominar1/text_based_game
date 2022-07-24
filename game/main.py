@@ -19,12 +19,12 @@ cell = Room("cell", 5, "null", "null", "null", "hallway")
 rooms = [basement, corridor, bedroom, hallway, cell]
 
 #Creating items
-flashlight = Weapon("flashlight", 5)
-knife = Weapon("knife", 12)
-bat = Weapon("bat", 15)
-gun = Weapon("gun", 30)
-healthStim = HealthStim("health stim", 30)
-helmet = Armor("helmet", 0.1)
+flashlight = Weapon("flashlight", 5, 1)
+knife = Weapon("knife", 12, 1)
+bat = Weapon("bat", 15, 1)
+gun = Weapon("gun", 30, 1)
+healthStim = HealthStim("health stim", 30, 2)
+helmet = Armor("helmet", 0.1, 2)
 items = [flashlight, knife, bat, gun, healthStim, helmet]
 
 #Creating enemy
@@ -34,7 +34,6 @@ entity = Enemy("distorted", "cell", 10, 100)
 basement.addContents(flashlight)
 corridor.addContents(bat)
 corridor.addContents(helmet)
-bedroom.addContents(flashlight)
 bedroom.addContents(knife)
 cell.addContents(gun)
 cell.addContents(healthStim)
