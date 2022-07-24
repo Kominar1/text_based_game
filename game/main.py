@@ -1,3 +1,4 @@
+from platform import machine
 from functions import *
 from entity import *
 from item import *
@@ -16,7 +17,10 @@ corridor = Room("corridor", 2, "null", "bedroom", "hallway", "basement")
 bedroom = Room("bedroom", 3, "corridor", "null", "null", "null")
 hallway = Room("hallway", 4, "cell", "null", "null", "corridor")
 cell = Room("cell", 5, "null", "null", "null", "hallway")
-rooms = [basement, corridor, bedroom, hallway, cell]
+stairs = Room("stairs", 6, "null", "null", "entrence", "hallway")
+entrance = Room("entrance", 7, "machine room", "control room", "null", "stairs")
+machineRoom = Room("machine room", 8, "null", "null", "null", "entrance")
+rooms = [basement, corridor, bedroom, hallway, cell, stairs, entrance, machineRoom]
 
 #Creating items
 flashlight = Weapon("flashlight", 5, 1)
@@ -25,7 +29,9 @@ bat = Weapon("bat", 15, 1)
 gun = Weapon("gun", 30, 1)
 healthStim = HealthStim("health stim", 30, 2)
 helmet = Armor("helmet", 0.1, 2)
-items = [flashlight, knife, bat, gun, healthStim, helmet]
+sword = Weapon("sword", 35, 1)
+strangeDevice = Item("strange device", "none", 1)
+items = [flashlight, knife, bat, gun, healthStim, helmet, sword,strangeDevice]
 
 #Creating enemy
 entity = Enemy("distorted", "cell", 10, 100)
@@ -38,6 +44,8 @@ bedroom.addContents(knife)
 cell.addContents(gun)
 cell.addContents(healthStim)
 cell.addEnemy(entity)
+entrance.addContents(sword)
+machineRoom.addContents(strangeDevice)
 
 dead = False
 first = True
