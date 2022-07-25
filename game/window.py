@@ -65,23 +65,3 @@ class Ui_MainWindow(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Hello</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
     # retranslateUi
-
-=======
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
-import sys
-
-def window():
-    app = QApplication(sys.argv)
-    win = QMainWindow()
-    win.setGeometry(200, 200, 700, 700)
-    win.setWindowTitle("Demensions")
-    
-    b1 = QtWidgets.QPushButton(win)
-    b1.setText("Submit")
-    
-
-    win.show()
-    sys.exit(app.exec_())
-    
->>>>>>> 6e9424f163c11fff655e6f23df65881f23666317
