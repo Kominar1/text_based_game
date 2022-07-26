@@ -1,5 +1,5 @@
-You wake up laying on a dirty floor.
-You slowly rise to your feet, feeling sore all over.
-You look around and see a flickering flashlight in the corner.
-You see nothing else in here except a couple big wooden crates that seem to be empty.
-What would you like to do?
+You wake up laying on a dirty floor.\n
+You slowly rise to your feet, feeling sore all over.\n
+You look around and see a flickering flashlight in the corner.\n
+You see nothing else in here except a couple big wooden crates that seem to be empty.\n
+What would you like to do?\n

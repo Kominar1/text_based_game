@@ -1,6 +1,5 @@
 import time
 import sys
-from tkinter import TRUE
 from item import *
 from entity import *
 
@@ -66,14 +65,14 @@ class Room:
     def getDiscription(self):
         with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
             lines = f.readlines()
-            delay_print(lines)
         f.close()
+        return lines
     def getLook(self):
         if self.alt1_ == True and self.alt2_ == False:
             with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt1.txt') as f:
                 lines = f.readlines()
-                delay_print(lines)
             f.close()
+            return lines
         elif self.alt2_ == True and self.alt1_ == False:
             with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt2.txt') as f:
                 lines = f.readlines()

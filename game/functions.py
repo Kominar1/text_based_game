@@ -1,6 +1,7 @@
 import time
 import sys
 from item import *
+from room import *
 
 #Windows path: e:/Projects/text_game/game/save.txt
 #Linux path: /home/kominar/Visual Studio/Projects/text_game/game/save.txt
@@ -11,26 +12,68 @@ def delay_print(text):
         sys.stdout.flush()
         time.sleep(0.03)
 
+def makeMap(mapOrItem):
+    basement = Room("basement", 1, "null", "null", "corridor", "null")
+    corridor = Room("corridor", 2, "null", "bedroom", "hallway", "basement")
+    bedroom = Room("bedroom", 3, "corridor", "null", "null", "null")
+    hallway = Room("hallway", 4, "cell", "null", "null", "corridor")
+    cell = Room("cell", 5, "null", "null", "null", "hallway")
+    stairs = Room("stairs", 6, "null", "null", "entrence", "hallway")
+    entrance = Room("entrance", 7, "machine room", "control room", "null", "stairs")
+    machineRoom = Room("machine room", 8, "null", "null", "null", "entrance")
+    
+    flashlight = Weapon("flashlight", 5, 1)
+    knife = Weapon("knife", 12, 1)
+    bat = Weapon("bat", 15, 1)
+    gun = Weapon("gun", 30, 1)
+    healthStim = HealthStim("health stim", 30, 2)
+    helmet = Armor("helmet", 0.1, 2)
+    sword = Weapon("sword", 35, 1)
+    strangeDevice = Item("strange device", "none", 1)
+
+    entity = Enemy("distorted", "cell", 10, 100)
+
+    basement.addContents(flashlight)
+    corridor.addContents(bat)
+    corridor.addContents(helmet)
+    bedroom.addContents(knife)
+    cell.addContents(gun)
+    cell.addContents(healthStim)
+    cell.addEnemy(entity)
+    entrance.addContents(sword)
+    machineRoom.addContents(strangeDevice)
+
+    if mapOrItem == "map":
+        return [basement, corridor, bedroom, hallway, cell, stairs, entrance, machineRoom]
+    elif mapOrItem == "item":
+        return [flashlight, knife, bat, gun, healthStim, helmet, sword,strangeDevice]
+
+def menuLayout():
+    return [
+    ['Save'],
+    ['Load']
+]
+
 def printHelp():
-    print("Help: Brings you to this menu.")
-    print("Health: Shows your current health count.")
-    print("Inventory: Shows the items in your inventory.")
-    print("Items: Prints a list of available items in the room.")
-    print("Grab: Type grab and then the item you want to get.")
-    print("Move: Type move and the room you want to move to.")
-    print("Look: Tells you some aditional information about the space.")
-    print("Available: List of rooms available to move to.")
-    print("Current: Tells the name of the current room you are in.")
-    print("Save: Saves current game.")
-    print("Load: Loads previous save.")
-    print("Equip: Let's you equip a weapon from your inventory.")
-    print("Put on: Let's you put on a piece of armor.")
-    print("In Use: Let's you check which item you have equiped.")
-    print("Check: Let's you check the amount of damage or healing or protection an item gives you.")
-    print("Attack: Let's you attack an enemy by typing attack and then the name of the enemy.")
-    print("Enemies: Gives you a list of enemies you can attack.")
-    print("Exit: Leaves the game.")
-    print("Start: Starts the game.")
+    return """    Help: Brings you to this menu.
+    Health: Shows your current health count.
+    Inventory: Shows the items in your inventory.
+    Items: Prints a list of available items in the room.
+    Grab: Type grab and then the item you want to get.
+    Move: Type move and the room you want to move to.
+    Look: Tells you some aditional information about the space.
+    Available: List of rooms available to move to.
+    Current: Tells the name of the current room you are in.
+    Save: Saves current game.
+    Load: Loads previous save.
+    Equip: Let's you equip a weapon from your inventory.
+    Put on: Let's you put on a piece of armor.
+    In Use: Let's you check which item you have equiped.
+    Check: Let's you check the amount of damage or healing or protection an item gives you.
+    Attack: Let's you attack an enemy by typing attack and then the name of the enemy.
+    Enemies: Gives you a list of enemies you can attack.
+    Exit: Leaves the game.
+    Start: Starts the game."""
 
 def getChoice(choice, player, rooms, items):
     current = searchRooms(rooms, player.getCurrentRoom())
