@@ -55,25 +55,25 @@ def menuLayout():
 ]
 
 def printHelp():
-    return """    Help: Brings you to this menu.
-    Health: Shows your current health count.
-    Inventory: Shows the items in your inventory.
-    Items: Prints a list of available items in the room.
-    Grab: Type grab and then the item you want to get.
-    Move: Type move and the room you want to move to.
-    Look: Tells you some aditional information about the space.
-    Available: List of rooms available to move to.
-    Current: Tells the name of the current room you are in.
-    Save: Saves current game.
-    Load: Loads previous save.
-    Equip: Let's you equip a weapon from your inventory.
-    Put on: Let's you put on a piece of armor.
-    In Use: Let's you check which item you have equiped.
-    Check: Let's you check the amount of damage or healing or protection an item gives you.
-    Attack: Let's you attack an enemy by typing attack and then the name of the enemy.
-    Enemies: Gives you a list of enemies you can attack.
-    Exit: Leaves the game.
-    Start: Starts the game."""
+    return """Help: Brings you to this menu.
+Health: Shows your current health count.
+Inventory: Shows the items in your inventory.
+Items: Prints a list of available items in the room.
+Grab: Type grab and then the item you want to get.
+Move: Type move and the room you want to move to.
+Look: Tells you some aditional information about the space.
+Available: List of rooms available to move to.
+Current: Tells the name of the current room you are in.
+Save: Saves current game.
+Load: Loads previous save.
+Equip: Let's you equip a weapon from your inventory.
+Put on: Let's you put on a piece of armor.
+In Use: Let's you check which item you have equiped.
+Check: Let's you check the amount of damage or healing or protection an item gives you.
+Attack: Let's you attack an enemy by typing attack and then the name of the enemy.
+Enemies: Gives you a list of enemies you can attack.
+Exit: Leaves the game.
+Start: Starts the game."""
 
 def getChoice(choice, player, rooms, items):
     current = searchRooms(rooms, player.getCurrentRoom())
@@ -260,4 +260,3 @@ def getItemInInventory(player, choice):
    for i in range(len(player.inventory_)):
         if player.inventory_[i].getName() in choice:
             return player.inventory_[i]
-            

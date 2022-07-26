@@ -66,7 +66,7 @@ class Room:
         with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
             lines = f.readlines()
         f.close()
-        return lines
+        return listToStr(lines)
     def getLook(self):
         if self.alt1_ == True and self.alt2_ == False:
             with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt1.txt') as f:
@@ -106,3 +106,15 @@ class Room:
             return True
         else:
             return False
+
+def listToStr(list):
+   
+    # initialize an empty string
+    str1 = ""
+   
+    # traverse in the string 
+    for ele in list:
+        str1 += ele 
+   
+    # return string 
+    return str1
