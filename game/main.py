@@ -41,6 +41,10 @@ while(dead != True):
             window['-DESCRIPTION-'].update(currentRoom.getDiscription())
             first = False
 
+        if event == 'Save':
+            save(player)
+            sg.popup('You succesfully saved!')
+
         if "move" in choice:
             first = True
 

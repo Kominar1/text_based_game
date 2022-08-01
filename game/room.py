@@ -64,28 +64,28 @@ class Room:
     
     #Description functions
     def getDiscription(self):
-        with open(str(Path.cwd()) + '/rooms/' + self.roomName_ + '/' + self.roomName_ + '_description.txt') as f:
+        with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_+ '_description.txt') as f:
             lines = f.readlines()
         f.close()
         return listToStr(lines)
     def getLook(self):
         if self.alt1_ == True and self.alt2_ == False:
-            with open(str(Path.cwd()) + '/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt1.txt') as f:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt1.txt') as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)
         elif self.alt2_ == True and self.alt1_ == False:
-            with open(str(Path.cwd()) + '/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt2.txt') as f:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt2.txt') as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)
         elif self.alt1_ == True and self.alt2_ == True:
-            with open(str(Path.cwd()) + '/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt3.txt') as f:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt3.txt') as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)
         elif self.alt1_ == False and self.alt2_ == False:
-            with open(str(Path.cwd()) + '/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
+            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)

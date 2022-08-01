@@ -91,6 +91,37 @@ def save(player):
     f.close()
     print("You successfully saved the game!")
 
+def load(items, player):
+    f = open("e:/Projects/text_game/game/save.txt")
+    lines = f.readlines()
+    f.close()
+    lineLength = int(lines[0])
+    itemsLength = len(items)
+    i=1
+    while(i <= lineLength):
+        j = 0
+        while(j<itemsLength):
+            if(items[j].getName() == lines[i].strip().lower()):
+                player.addInv(items[j])
+                break
+            else:
+                j+=1
+        i+=1
+    lineLength+=1
+    #get the sting and delete the \n from it
+    player.setHealth = int(lines[lineLength][:-1])
+    lineLength+=1
+    player.setCurrentRoom(lines[lineLength][:-1])
+    lineLength+=1
+    player.setName(lines[lineLength][:-1])
+    lineLength+=1
+    if lines[lineLength][:-1] != "blank":
+        player.equipItem(lines[lineLength][:-1])
+    lineLength+=1
+    if lines[lineLength][:-1] != "blank":
+        player.putOnArmor(lines[lineLength][:-1])
+    return True
+
 def getChoice(choice, player, rooms, items):
     current = searchRooms(rooms, player.getCurrentRoom())
     choice = choice.strip().lower()
@@ -148,9 +179,6 @@ def getChoice(choice, player, rooms, items):
     if "exit" in choice:
         sys.exit()
     #Done
-    #if "start" in choice:
-        #return True
-    #Done
     if "grab" in choice:
         item = getItemInRoom(current, choice)
         if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, HealthStim):
@@ -162,37 +190,6 @@ def getChoice(choice, player, rooms, items):
                 return "You have successfully added " + item.getName() + " to your inventory!"
         else:
             return "There is no item here by that name."
-    
-    if "load" in choice:
-        f = open(str(Path.cwd()) + "/save.txt")
-        lines = f.readlines()
-        f.close()
-        lineLength = int(lines[0])
-        itemsLength = len(items)
-        i=1
-        while(i <= lineLength):
-            j = 0
-            while(j<itemsLength):
-                if(items[j].getName() == lines[i].strip().lower()):
-                    player.addInv(items[j])
-                    break
-                else:
-                    j+=1
-            i+=1
-        lineLength+=1
-        #get the sting and delete the \n from it
-        player.setHealth = int(lines[lineLength][:-1])
-        lineLength+=1
-        player.setCurrentRoom(lines[lineLength][:-1])
-        lineLength+=1
-        player.setName(lines[lineLength][:-1])
-        lineLength+=1
-        if lines[lineLength][:-1] != "blank":
-            player.equipItem(lines[lineLength][:-1])
-        lineLength+=1
-        if lines[lineLength][:-1] != "blank":
-            player.putOnArmor(lines[lineLength][:-1])
-        return True
     
     if "equip" in choice:
         item = getItemInInventory(player, choice)
