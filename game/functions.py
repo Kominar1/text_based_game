@@ -148,7 +148,7 @@ def getChoice(choice, player, rooms, items):
             print("There is no item here by that name.")
     #Done
     if "save" in choice:
-        f = open("e:/Projects/text_game/game/save.txt", "w")
+        f = open(str(Path.cwd()) + "/save.txt", "w")
         i = 0
         length = len(player.inventory_)
         f.write(str(length) + "\n")
@@ -164,7 +164,7 @@ def getChoice(choice, player, rooms, items):
         print("You successfully saved the game!")
     #Done
     if "load" in choice:
-        f = open("e:/Projects/text_game/game/save.txt")
+        f = open(str(Path.cwd()) + "/save.txt")
         lines = f.readlines()
         f.close()
         lineLength = int(lines[0])

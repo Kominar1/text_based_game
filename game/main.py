@@ -2,7 +2,6 @@ from functions import *
 from entity import *
 from item import *
 from room import *
-from window import*
 import PySimpleGUI as sg
 
 #Creating player
