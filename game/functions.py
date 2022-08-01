@@ -75,28 +75,44 @@ Enemies: Gives you a list of enemies you can attack.
 Exit: Leaves the game.
 Start: Starts the game."""
 
+def save(player):
+    f = open("e:/Projects/text_game/game/save.txt", "w")
+    i = 0
+    length = len(player.inventory_)
+    f.write(str(length) + "\n")
+    for x in player.inventory_:
+        f.write(player.inventory_[i].getName() + "\n")
+        i+=1
+    f.write(str(player.getHealth()) + "\n")
+    f.write(player.getCurrentRoom() + "\n")
+    f.write(player.name_ + "\n")
+    f.write(player.weapon_.getName() + "\n")
+    f.write(player.armor_.getName() + "\n")
+    f.close()
+    print("You successfully saved the game!")
+
 def getChoice(choice, player, rooms, items):
     current = searchRooms(rooms, player.getCurrentRoom())
     choice = choice.strip().lower()
     item = ""
     #Done
     if "help" in choice:
-        printHelp()
+        return printHelp()
     #Done
     if "health" in choice:
         if choice == "health":
-            print("Your health is at: " + str(player.getHealth()))
-    #Done
+            return "Your health is at: " + str(player.getHealth())
+    
     if "inventory" in choice:
-        player.showInv()
-    #Done
+        return player.showInv()
+    
     if "items" in choice:
         current.getContents()
     #Done
     if "move" in choice:
         #Get the room from the string
         if player.getCurrentRoom() in choice:
-            print("You are already in this room.\n") 
+            return "You are already in this room.\n"
 
         if current.getTheRight() in choice:
             player.setCurrentRoom(current.getTheRight())
@@ -107,11 +123,11 @@ def getChoice(choice, player, rooms, items):
         elif current.getBehind() in choice:
             player.setCurrentRoom(current.getBehind())
         else:
-            print("There is no room by that name available.")
-    #Done
+            return "There is no room by that name available."
+    
     if "look" in choice:
-        print(current.getLook())
-    #Done
+        return current.getLook()
+    
     if "available" in choice:
         print("Rooms that you can move to are: ")
         if(current.getTheRight() != "null"):
@@ -127,42 +143,26 @@ def getChoice(choice, player, rooms, items):
             print(current.getBehind())
     #Done
     if "current" in choice:
-        print("You are currently in the " + player.getCurrentRoom() + ".")
+        return "You are currently in the " + player.getCurrentRoom() + "."
     #Done
     if "exit" in choice:
         sys.exit()
     #Done
-    if "start" in choice:
-        return True
+    #if "start" in choice:
+        #return True
     #Done
     if "grab" in choice:
         item = getItemInRoom(current, choice)
         if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, HealthStim):
             if player.searchInv(item):
-                print("You already have this item in your inventory.")
+                return "You already have this item in your inventory."
             elif current.searchContents(item.getName()):
                 player.addInv(item)
                 current.removeContents(item)
-                print("You have successfully added " + item.getName() + " to your inventory!")
+                return "You have successfully added " + item.getName() + " to your inventory!"
         else:
-            print("There is no item here by that name.")
-    #Done
-    if "save" in choice:
-        f = open(str(Path.cwd()) + "/save.txt", "w")
-        i = 0
-        length = len(player.inventory_)
-        f.write(str(length) + "\n")
-        for x in player.inventory_:
-            f.write(player.inventory_[i].getName() + "\n")
-            i+=1
-        f.write(str(player.getHealth()) + "\n")
-        f.write(player.getCurrentRoom() + "\n")
-        f.write(player.name_ + "\n")
-        f.write(player.weapon_.getName() + "\n")
-        f.write(player.armor_.getName() + "\n")
-        f.close()
-        print("You successfully saved the game!")
-    #Done
+            return "There is no item here by that name."
+    
     if "load" in choice:
         f = open(str(Path.cwd()) + "/save.txt")
         lines = f.readlines()
@@ -193,14 +193,14 @@ def getChoice(choice, player, rooms, items):
         if lines[lineLength][:-1] != "blank":
             player.putOnArmor(lines[lineLength][:-1])
         return True
-    #Done
+    
     if "equip" in choice:
         item = getItemInInventory(player, choice)
         if item.getName() in choice:
             player.equipItem(item)
-    #Done
+
     if "in use" in choice:
-        player.checkEquiped()
+        return player.checkEquiped()
     #need to rework
     if "attack" in choice:
         enemyName = ""
@@ -226,11 +226,11 @@ def getChoice(choice, player, rooms, items):
 
                 if(block == False):
                     player.lowerHealth(enemy.attack())
-    #Done
+    
     if "enemies" in choice:
         print("Current enemies in the room are: ")
         current.getEnemies()
-    #Done
+    
     if "heal" in choice:
         if choice == "heal":
             player.heal()
@@ -238,9 +238,9 @@ def getChoice(choice, player, rooms, items):
     if "check" in choice:
         item = getItemInInventory(player, choice)
         if item.getName() == '':
-            print("This item is not in your inventory.")
+            return "This item is not in your inventory."
         else:
-            item.check()
+            return item.check()
 
     if "put on" in choice:
         item = getItemInInventory(player, choice)

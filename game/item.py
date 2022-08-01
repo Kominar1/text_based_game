@@ -11,7 +11,7 @@ class Item:
         return self.attribute_
 
     def check(self):
-        print("The " + self.getName() + " doesn't seem to have a purpose yet.")
+        return "The " + self.getName() + " doesn't seem to have a purpose yet."
     
     def getNum(self):
         return self.itemNum_

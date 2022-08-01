@@ -39,12 +39,13 @@ class Player(Entity):
     #Inventory functions
     def showInv(self):
         if not self.inventory_:
-            print("Your inventory is empty.")
+            return "Your inventory is empty."
         else:
-            print("///////////////////////////////////////////////////////")
+            string = "///////////////////////////////////////////////////////\n"
             for i in range(len(self.inventory_)):
-                print(self.inventory_[i].getName())
-            print("///////////////////////////////////////////////////////")    
+                string = string + (self.inventory_[i].getName() + '\n')
+            string = string + "///////////////////////////////////////////////////////"
+            return string
     def searchInv(self, item):
         if item in self.inventory_:
             return True
