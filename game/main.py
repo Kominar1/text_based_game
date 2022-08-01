@@ -34,17 +34,21 @@ while(dead != True):
     if event == '-SUBMIT-':
         choice = values['-INPUT-'].strip().lower()
 
-    if(first == True):
-        window['-DESCRIPTION-'].update(currentRoom.getDiscription())
-        first = False
+    if "start" in choice:
+        start = True
 
-    if "move" in choice:
-        first = True
+    if start:
+        if(first == True):
+            window['-DESCRIPTION-'].update(currentRoom.getDiscription())
+            first = False
 
-    if "load" in choice:
-        first = True
+        if "move" in choice:
+            first = True
 
-    getChoice(choice, player, rooms, items)
+        if "load" in choice:
+            first = True
+
+        window['-DESCRIPTION-'].update(getChoice(choice, player, rooms, items))
 
 if dead:
     print("You died!")
