@@ -1,0 +1,7 @@
+1
+flashlight
+100
+basement
+Player
+blank
+blank

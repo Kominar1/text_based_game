@@ -16,7 +16,7 @@ def makeMap(mapOrItem):
     basement = Room("basement", 1, "null", "null", "corridor", "null")
     corridor = Room("corridor", 2, "null", "bedroom", "hallway", "basement")
     bedroom = Room("bedroom", 3, "corridor", "null", "null", "null")
-    hallway = Room("hallway", 4, "cell", "null", "null", "corridor")
+    hallway = Room("hallway", 4, "cell", "null", "stairs", "corridor")
     cell = Room("cell", 5, "null", "null", "null", "hallway")
     stairs = Room("stairs", 6, "null", "null", "entrence", "hallway")
     entrance = Room("entrance", 7, "machine room", "control room", "null", "stairs")
@@ -47,12 +47,6 @@ def makeMap(mapOrItem):
         return [basement, corridor, bedroom, hallway, cell, stairs, entrance, machineRoom]
     elif mapOrItem == "item":
         return [flashlight, knife, bat, gun, healthStim, helmet, sword,strangeDevice]
-
-def menuLayout():
-    return [
-    ['Save'],
-    ['Load']
-]
 
 def printHelp():
     return """Help: Brings you to this menu.

@@ -15,28 +15,44 @@ items = makeMap("item")
 dead = False
 first = True
 
+menu = [
+    ['File', ['Save', 'Load']],
+    ['Player', ['Health', 'Inventory', 'Equiped']]
+]
+
 layout = [
-    [sg.Menu(menuLayout())],
+    [sg.Menu(menu)],
     [sg.Text(printHelp(), key = '-DESCRIPTION-')],
-    [sg.Input(key = '-INPUT-'), sg.Button('Submit', key = '-SUBMIT-')]
+    [sg.Input(key = '-INPUT-', do_not_clear= False), sg.Button('Submit', key = '-SUBMIT-', bind_return_key = True, button_color=('white', 'orange'))]
 ]
 
 window = sg.Window('Dimensions', layout)
+choice = ""
     
 while(dead != True):
-    currentRoom = searchRooms(rooms, player.getCurrentRoom())
     event, values = window.read()
+    if event == '-SUBMIT-':
+        choice = values['-INPUT-'].strip().lower()
+    
+    if event == 'Load':
+        load(items, player)
+        first = True
+        start = True
+        sg.popup('You succesfully loaded!')
+
+    window['-DESCRIPTION-'].update(getChoice(choice, player, rooms, items))
+    currentRoom = searchRooms(rooms, player.getCurrentRoom())   
 
     if event == sg.WIN_CLOSED:
         break
     
-    if event == '-SUBMIT-':
-        choice = values['-INPUT-'].strip().lower()
-
     if "start" in choice:
         start = True
 
     if start:
+        if "move" in choice:
+            first = True
+
         if(first == True):
             window['-DESCRIPTION-'].update(currentRoom.getDiscription())
             first = False
@@ -45,13 +61,6 @@ while(dead != True):
             save(player)
             sg.popup('You succesfully saved!')
 
-        if "move" in choice:
-            first = True
-
-        if "load" in choice:
-            first = True
-
-        window['-DESCRIPTION-'].update(getChoice(choice, player, rooms, items))
 
 if dead:
     print("You died!")
