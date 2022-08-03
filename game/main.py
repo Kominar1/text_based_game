@@ -18,6 +18,7 @@ first = True
 menu = [
     ['File', ['Save', 'Load']],
     ['Player', ['Health', 'Inventory', 'Equiped']]
+    ['Room', ['Available', ]]
 ]
 
 layout = [
@@ -61,6 +62,14 @@ while(dead != True):
             save(player)
             sg.popup('You succesfully saved!')
 
+        if event == 'Inventory':
+            sg.popup(inventory(player))
+
+        if event == 'Health':
+            sg.popup("Your health is at: " + player.getHealth())
+
+        if event == 'Equiped':
+            sg.popup(player.checkEquiped())
 
 if dead:
     print("You died!")

@@ -50,19 +50,14 @@ def makeMap(mapOrItem):
 
 def printHelp():
     return """Help: Brings you to this menu.
-Health: Shows your current health count.
-Inventory: Shows the items in your inventory.
 Items: Prints a list of available items in the room.
 Grab: Type grab and then the item you want to get.
 Move: Type move and the room you want to move to.
 Look: Tells you some aditional information about the space.
 Available: List of rooms available to move to.
 Current: Tells the name of the current room you are in.
-Save: Saves current game.
-Load: Loads previous save.
 Equip: Let's you equip a weapon from your inventory.
 Put on: Let's you put on a piece of armor.
-In Use: Let's you check which item you have equiped.
 Check: Let's you check the amount of damage or healing or protection an item gives you.
 Attack: Let's you attack an enemy by typing attack and then the name of the enemy.
 Enemies: Gives you a list of enemies you can attack.
@@ -116,6 +111,9 @@ def load(items, player):
         player.putOnArmor(lines[lineLength][:-1])
     return True
 
+def inventory(player):
+    return player.showInv()
+
 def getChoice(choice, player, rooms, items):
     current = searchRooms(rooms, player.getCurrentRoom())
     choice = choice.strip().lower()
@@ -124,13 +122,6 @@ def getChoice(choice, player, rooms, items):
     if "help" in choice:
         return printHelp()
     #Done
-    if "health" in choice:
-        if choice == "health":
-            return "Your health is at: " + str(player.getHealth())
-    
-    if "inventory" in choice:
-        return player.showInv()
-    
     if "items" in choice:
         current.getContents()
     #Done
@@ -149,10 +140,10 @@ def getChoice(choice, player, rooms, items):
             player.setCurrentRoom(current.getBehind())
         else:
             return "There is no room by that name available."
-    
+    #Done
     if "look" in choice:
         return current.getLook()
-    
+    #Done
     if "available" in choice:
         print("Rooms that you can move to are: ")
         if(current.getTheRight() != "null"):
@@ -170,9 +161,6 @@ def getChoice(choice, player, rooms, items):
     if "current" in choice:
         return "You are currently in the " + player.getCurrentRoom() + "."
     #Done
-    if "exit" in choice:
-        sys.exit()
-    #Done
     if "grab" in choice:
         item = getItemInRoom(current, choice)
         if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, HealthStim):
@@ -184,14 +172,11 @@ def getChoice(choice, player, rooms, items):
                 return "You have successfully added " + item.getName() + " to your inventory!"
         else:
             return "There is no item here by that name."
-    
+    #Done
     if "equip" in choice:
         item = getItemInInventory(player, choice)
         if item.getName() in choice:
-            player.equipItem(item)
-
-    if "in use" in choice:
-        return player.checkEquiped()
+            return player.equipItem(item)
     #need to rework
     if "attack" in choice:
         enemyName = ""
@@ -217,11 +202,11 @@ def getChoice(choice, player, rooms, items):
 
                 if(block == False):
                     player.lowerHealth(enemy.attack())
-    
+    #Done
     if "enemies" in choice:
         print("Current enemies in the room are: ")
         current.getEnemies()
-    
+    #Done
     if "heal" in choice:
         if choice == "heal":
             player.heal()
@@ -232,10 +217,10 @@ def getChoice(choice, player, rooms, items):
             return "This item is not in your inventory."
         else:
             return item.check()
-
+    #Done
     if "put on" in choice:
         item = getItemInInventory(player, choice)
-        player.putOnArmor(item)
+        return player.putOnArmor(item)
 
 def searchRooms(roomsIndex, room):
     for i in range(len(roomsIndex)):

@@ -1,7 +1,9 @@
-1
+3
 flashlight
+helmet
+bat
 100
-basement
+corridor
 Player
 blank
 blank

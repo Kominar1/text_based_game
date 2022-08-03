@@ -9,7 +9,7 @@ class Entity:
 
     #Health functions
     def getHealth(self):
-        return self.health_
+        return str(self.health_)
     def raiseHealth(self, heal):
         self.health_ += heal
     def lowerHealth(self, damage):
@@ -41,10 +41,9 @@ class Player(Entity):
         if not self.inventory_:
             return "Your inventory is empty."
         else:
-            string = "///////////////////////////////////////////////////////\n"
+            string = ""
             for i in range(len(self.inventory_)):
                 string = string + (self.inventory_[i].getName() + '\n')
-            string = string + "///////////////////////////////////////////////////////"
             return string
     def searchInv(self, item):
         if item in self.inventory_:
@@ -70,38 +69,40 @@ class Player(Entity):
         if isinstance(itemEquiped, Weapon):
             if self.searchInv(itemEquiped):
                 self.weapon_ = itemEquiped
-                print("You equiped the " + self.weapon_.getName() + "!")
+                return "You equiped the " + self.weapon_.getName() + "!"
             else:
-                print("You don't have this item in your inventory.")
+                return"You don't have this item in your inventory."
         else:
             if(self.searchInv(item)):
                 self.weapon_ = item
-                print("You equiped the " + self.weapon_.getName() + "!")
+                return "You equiped the " + self.weapon_.getName() + "!"
             else:
-                print("You don't have this item in your inventory.")
+                return "You don't have this item in your inventory."
     def checkEquiped(self):
+        string = ""
         if self.weapon_.getName() == "blank":
-            print("You don't have any weapon equiped right now.")
+            string = "You don't have any weapon equiped right now.\n"
         else:
-            print("You have the " + self.weapon_.getName() + " equiped.")
+            string = "You have the " + self.weapon_.getName() + " equiped.\n"
         if self.armor_.getName() == "blank":
-            print("You don't have any armor on right now.")
+            string = string + "You don't have any armor on right now."
         else:
-            print("You have the " + self.armor_.getName() + " on.")
+            string = string + "You have the " + self.armor_.getName() + " on."
+        return string
     def putOnArmor(self, armor):
         armorEquiped = self.searchItem(armor)
         if isinstance(armorEquiped, Armor):
             if self.searchInv(armorEquiped):
                 self.armor_ = armorEquiped
-                print("You put the " + self.armor_.getName() + " on!")
+                return "You put the " + self.armor_.getName() + " on!"
             else:
-                print("You don't have this in your inventory.")
+                return "You don't have this in your inventory."
         else:
             if self.searchInv(armor):
                 self.armor_ = armor
-                print("You put the " + self.armor_.getName() + " on!")
+                return "You put the " + self.armor_.getName() + " on!"
             else:
-                print("You don't have this in your inventory.")
+                return "You don't have this in your inventory."
 
     def attack(self):
         return self.weapon_.getAttribute()    
