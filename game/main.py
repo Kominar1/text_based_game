@@ -17,8 +17,8 @@ first = True
 
 menu = [
     ['File', ['Save', 'Load']],
-    ['Player', ['Health', 'Inventory', 'Equiped']]
-    ['Room', ['Available', ]]
+    ['Player', ['Health', 'Inventory', 'Equiped']],
+    ['Room', ['Available']]
 ]
 
 layout = [
@@ -41,7 +41,7 @@ while(dead != True):
         start = True
         sg.popup('You succesfully loaded!')
 
-    window['-DESCRIPTION-'].update(getChoice(choice, player, rooms, items))
+    window['-DESCRIPTION-'].update(getChoice(choice, player, rooms))
     currentRoom = searchRooms(rooms, player.getCurrentRoom())   
 
     if event == sg.WIN_CLOSED:
@@ -70,6 +70,9 @@ while(dead != True):
 
         if event == 'Equiped':
             sg.popup(player.checkEquiped())
+
+        if event == 'Available':
+            sg.popup(available(currentRoom))
 
 if dead:
     print("You died!")

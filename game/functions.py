@@ -114,7 +114,22 @@ def load(items, player):
 def inventory(player):
     return player.showInv()
 
-def getChoice(choice, player, rooms, items):
+def available(current):
+    string = "Rooms that you can move to are: \n"
+    if(current.getTheRight() != "null"):
+        string = string + current.getTheRight() + '\n'
+
+    if(current.getTheLeft() != "null"):
+        string = string + current.getTheLeft() + '\n'
+
+    if(current.getAhead() != "null"):
+        string = string + current.getAhead() + '\n'
+
+    if(current.getBehind() != "null"):
+        string = string + current.getBehind() + '\n'
+    return string
+
+def getChoice(choice, player, rooms):
     current = searchRooms(rooms, player.getCurrentRoom())
     choice = choice.strip().lower()
     item = ""
@@ -143,20 +158,6 @@ def getChoice(choice, player, rooms, items):
     #Done
     if "look" in choice:
         return current.getLook()
-    #Done
-    if "available" in choice:
-        print("Rooms that you can move to are: ")
-        if(current.getTheRight() != "null"):
-            print(current.getTheRight())
-
-        if(current.getTheLeft() != "null"):
-            print(current.getTheLeft())
-
-        if(current.getAhead() != "null"):
-            print(current.getAhead())
-
-        if(current.getBehind() != "null"):
-            print(current.getBehind())
     #Done
     if "current" in choice:
         return "You are currently in the " + player.getCurrentRoom() + "."
