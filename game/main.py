@@ -74,6 +74,4 @@ while(dead != True):
         if event == 'Available':
             sg.popup(available(currentRoom))
 
-if dead:
-    print("You died!")
 window.close()

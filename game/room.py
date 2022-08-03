@@ -1,8 +1,10 @@
 import time
 import sys
+import os
 from pathlib import Path
 from item import *
 from entity import *
+
 
 # Windows path: e:/Projects/text_game/game/rooms/
 #Linux path: /home/kominar/Visual Studio/Projects/text_game/game/rooms/
@@ -64,6 +66,7 @@ class Room:
     
     #Description functions
     def getDiscription(self):
+        current_directory = os.getcwd()
         with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_+ '_description.txt') as f:
             lines = f.readlines()
         f.close()
