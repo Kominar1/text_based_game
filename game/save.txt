@@ -1,9 +1,9 @@
 3
 flashlight
-helmet
 bat
+helmet
 100
-corridor
+cell
 Player
-blank
-blank
+bat
+helmet

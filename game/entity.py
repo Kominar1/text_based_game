@@ -9,7 +9,7 @@ class Entity:
 
     #Health functions
     def getHealth(self):
-        return str(self.health_)
+        return self.health_
     def raiseHealth(self, heal):
         self.health_ += heal
     def lowerHealth(self, damage):
@@ -28,13 +28,15 @@ class Player(Entity):
         self.inventory_ = []
         self.weapon_ = Weapon("blank", 1, 0)
         self.armor_ = Armor("blank", 0, 0)
+        self.level_ = 1
+        self.exp_ = 0
 
     def lowerHealth(self, damage):
         if self.armor_.getName != "Blank":
             blocked = damage * self.armor_.getAttribute()
             damage -= blocked
             self.health_ -= damage
-        print("You've been hit! Your health is now at " + str(self.getHealth()) + ".")
+        return "You've been hit! Your health is now at " + str(self.getHealth()) + "."
     
     #Inventory functions
     def showInv(self):
@@ -52,6 +54,13 @@ class Player(Entity):
         self.inventory_.append(item)
     def removeInv(self, item):
         self.inventory_.remove(item)
+
+    #Level functions
+    def addExp(self, exp):
+        self.exp_ += exp
+        if self.exp_ >= 100:
+            self.exp_ -= 100
+            self.level_ += 1
 
     #Room functions
     def getCurrentRoom(self):
@@ -107,7 +116,6 @@ class Player(Entity):
     def attack(self):
         return self.weapon_.getAttribute()    
     def block(self):
-        print("You blocked the attack!")
         return True
     def setName(self, name):
         self.name_ = name
@@ -126,10 +134,11 @@ class Player(Entity):
             print("You don't have any health stims in your inventory.\n")
 
 class Enemy(Entity):
-    def __init__(self, name, currentRoom, attack, dodgeChance):
+    def __init__(self, name, currentRoom, attack, dodgeChance, exp):
         super().__init__(name, currentRoom)
         self.attack_ = attack
         self.dodgeChance_ = dodgeChance
+        self.exp_ = exp
 
     #add a chance for an attack that does damage and a half
     def attack(self):
@@ -146,10 +155,10 @@ class Enemy(Entity):
 
     def lowerHealth(self, damage):
         if(self.checkIfDead()):
-            print("You killed it!")
+            return "You killed it!"
         else:
             if(self.dodgeChance() != 2):
                 self.health_ -= damage
-                print("You hit them! They have " + str(self.getHealth()) + " health left!")
+                return "You hit them! They have " + str(self.getHealth()) + " health left!"
             else:
-                print("Oh no! They dodged away from your attack! You did no damage!")
+                return "Oh no! They dodged away from your attack! You did no damage!"

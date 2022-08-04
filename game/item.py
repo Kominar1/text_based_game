@@ -8,7 +8,7 @@ class Item:
         return self.name_
 
     def getAttribute(self):
-        return str(self.attribute_)
+        return self.attribute_
 
     def check(self):
         return "The " + self.getName() + " doesn't seem to have a purpose yet."
@@ -18,11 +18,11 @@ class Item:
 
 class Weapon(Item):
     def check(self):
-        return "This weapon does " + self.getAttribute() + " damage."
+        return "This weapon does " + str(self.getAttribute()) + " damage."
     
 class HealthStim(Item):
     def check(self):
-        return "This health stim restores " + self.getAttribute() + " hp."
+        return "This health stim restores " + str(self.getAttribute()) + " hp."
 
 class Armor(Item):
     def check(self):

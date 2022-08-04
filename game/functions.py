@@ -31,7 +31,7 @@ def makeMap(mapOrItem):
     sword = Weapon("sword", 35, 1)
     strangeDevice = Item("strange device", "none", 1)
 
-    entity = Enemy("distorted", "cell", 10, 100)
+    entity = Enemy("distorted", "cell", 10, 100, 10)
 
     basement.addContents(flashlight)
     corridor.addContents(bat)
@@ -129,7 +129,7 @@ def available(current):
         string = string + current.getBehind() + '\n'
     return string
 
-def getChoice(choice, player, rooms):
+def getChoice(choice, player, rooms, window):
     current = searchRooms(rooms, player.getCurrentRoom())
     choice = choice.strip().lower()
     item = ""
@@ -185,24 +185,26 @@ def getChoice(choice, player, rooms):
             if current.enemies_[i].getName() in choice:
                 enemyName = current.enemies_[i].getName()
         if(current.searchEnemies(enemyName) == False):
-            print("There is nothing here with that name.")
+            window['-DESCRIPTION-'].update("There is nothing here with that name.")
         else:
             enemy = current.searchEnemies(enemyName)
             flee = False
             while(player.checkIfDead() == False and enemy.checkIfDead() == False and flee == False):
                 block = False
                 #Do you want to attack block or flee
-                print("Would you like to attack, block or flee?")
-                choice = input()
+                window['-DESCRIPTION-'].update("Would you like to attack, block or flee?")
+                event, values = window.read()
+                if event == '-SUBMIT-':
+                    choice = values['-INPUT-'].strip().lower()
                 if "attack" in choice:
-                    enemy.lowerHealth(player.attack())
+                    window['-DESCRIPTION-'].update(enemy.lowerHealth(player.attack()))
                 elif "block" in choice:
+                    window['-DESCRIPTION-'].update("You blocked the attack!")
                     block = player.block()                
                 elif "flee" in choice:
                     flee = True
-
                 if(block == False):
-                    player.lowerHealth(enemy.attack())
+                    window['-DESCRIPTION-'].update(player.lowerHealth(enemy.attack()))
     #Done
     if "enemies" in choice:
         print("Current enemies in the room are: ")
@@ -217,7 +219,7 @@ def getChoice(choice, player, rooms):
         if item.getName() == '':
             return "This item is not in your inventory."
         else:
-            return item.check()
+            return str(item.check())
     #Done
     if "put on" in choice:
         item = getItemInInventory(player, choice)

@@ -41,7 +41,7 @@ while(dead != True):
         start = True
         sg.popup('You succesfully loaded!')
 
-    window['-DESCRIPTION-'].update(getChoice(choice, player, rooms))
+    window['-DESCRIPTION-'].update(getChoice(choice, player, rooms, window))
     currentRoom = searchRooms(rooms, player.getCurrentRoom())   
 
     if event == sg.WIN_CLOSED:
@@ -66,12 +66,11 @@ while(dead != True):
             sg.popup(inventory(player))
 
         if event == 'Health':
-            sg.popup("Your health is at: " + player.getHealth())
+            sg.popup("Your health is at: " + str(player.getHealth()))
 
         if event == 'Equiped':
             sg.popup(player.checkEquiped())
 
         if event == 'Available':
             sg.popup(available(currentRoom))
-
 window.close()
