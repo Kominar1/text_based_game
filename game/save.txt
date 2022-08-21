@@ -1,5 +1,4 @@
-3
-flashlight
+2
 bat
 helmet
 100

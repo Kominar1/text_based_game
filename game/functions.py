@@ -180,31 +180,35 @@ def getChoice(choice, player, rooms, window):
             return player.equipItem(item)
     #need to rework
     if "attack" in choice:
-        enemyName = ""
-        for i in range(len(current.enemies_)):
-            if current.enemies_[i].getName() in choice:
-                enemyName = current.enemies_[i].getName()
-        if(current.searchEnemies(enemyName) == False):
-            window['-DESCRIPTION-'].update("There is nothing here with that name.")
-        else:
-            enemy = current.searchEnemies(enemyName)
-            flee = False
-            while(player.checkIfDead() == False and enemy.checkIfDead() == False and flee == False):
-                block = False
-                #Do you want to attack block or flee
+            enemyName = ""
+            for i in range(len(current.enemies_)):
+                if current.enemies_[i].getName() in choice:
+                    enemyName = current.enemies_[i].getName()
+            if(current.searchEnemies(enemyName) == False):
+                window['-DESCRIPTION-'].update("There is nothing here with that name.")
+                event, values = window.read()
+            else:
                 window['-DESCRIPTION-'].update("Would you like to attack, block or flee?")
                 event, values = window.read()
-                if event == '-SUBMIT-':
-                    choice = values['-INPUT-'].strip().lower()
-                if "attack" in choice:
-                    window['-DESCRIPTION-'].update(enemy.lowerHealth(player.attack()))
-                elif "block" in choice:
-                    window['-DESCRIPTION-'].update("You blocked the attack!")
-                    block = player.block()                
-                elif "flee" in choice:
-                    flee = True
-                if(block == False):
-                    window['-DESCRIPTION-'].update(player.lowerHealth(enemy.attack()))
+                enemy = current.searchEnemies(enemyName)
+                flee = False
+                while(player.checkIfDead() == False and enemy.checkIfDead() == False and flee == False):
+                    block = False
+                    #Do you want to attack block or flee
+                    if event == '-SUBMIT-':
+                        choice = values['-INPUT-'].strip().lower()
+                    if "attack" in choice:
+                        window['-DESCRIPTION-'].update(enemy.lowerHealth(player.attack()) + "\nWould you like to attack, block or flee?")
+                        event, values = window.read()
+                    elif "block" in choice:
+                        window['-DESCRIPTION-'].update("You blocked the attack!\nWould you like to attack, block or flee?")
+                        event, values = window.read()
+                        block = player.block()                
+                    elif "flee" in choice:
+                        flee = True
+                    if(block == False):
+                        window['-DESCRIPTION-'].update(player.lowerHealth(enemy.attack()) + "\nWould you like to attack, block or flee?")
+                        event, values = window.read()
     #Done
     if "enemies" in choice:
         print("Current enemies in the room are: ")
