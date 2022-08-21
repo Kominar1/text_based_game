@@ -18,7 +18,7 @@ def makeMap(mapOrItem):
     bedroom = Room("bedroom", 3, "corridor", "null", "null", "null")
     hallway = Room("hallway", 4, "cell", "null", "stairs", "corridor")
     cell = Room("cell", 5, "null", "null", "null", "hallway")
-    stairs = Room("stairs", 6, "null", "null", "entrence", "hallway")
+    stairs = Room("stairs", 6, "null", "null", "entrance", "hallway")
     entrance = Room("entrance", 7, "machine room", "control room", "null", "stairs")
     machineRoom = Room("machine room", 8, "null", "null", "null", "entrance")
     
