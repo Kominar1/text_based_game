@@ -1,8 +1,13 @@
-2
+7
 bat
 helmet
+sword
+strange device
+bat
+helmet
+sword
 100
-cell
+control room
 Player
 bat
 helmet

@@ -14,6 +14,7 @@ items = makeMap("item")
 
 dead = False
 first = True
+win = False
 
 menu = [
     ['File', ['Save', 'Load']],
@@ -30,7 +31,7 @@ layout = [
 window = sg.Window('Dimensions', layout)
 choice = ""
     
-while(dead != True):
+while(dead != True and win != True):
     event, values = window.read()
     if event == '-SUBMIT-':
         choice = values['-INPUT-'].strip().lower()
@@ -55,7 +56,17 @@ while(dead != True):
             first = True
 
         if(first == True):
-            window['-DESCRIPTION-'].update(currentRoom.getDiscription())
+            if player.getCurrentRoom() == "control room":
+                if player.searchInv(player.searchItem("key")) and player.searchInv(player.searchItem("strange device")):
+                    with open('e:/Projects/text_game/game/rooms/control room/control room_description_alt1.txt') as f:
+                        lines = f.readlines()
+                    f.close()
+                    window['-DESCRIPTION-'].update(listToStr(lines))  
+                    win = True
+                else:
+                    window['-DESCRIPTION-'].update(currentRoom.getDiscription())
+            else:
+                window['-DESCRIPTION-'].update(currentRoom.getDiscription())
             first = False
 
         if event == 'Save':
@@ -73,4 +84,7 @@ while(dead != True):
 
         if event == 'Available':
             sg.popup(available(currentRoom))
+        
+        if player.searchInv(player.searchItem("key")) and player.searchInv(player.searchItem("strange device")):
+            window['-DESCRIPTION-'].update("You suddently feel the strange device moving.\nYou pick it up and look at it and see a key hole suddently on it.\nYou put the key in it and turn and the device hums to life, you have a feeling the entrance is changed.")
 window.close()

@@ -34,10 +34,11 @@ class Room:
         self.contents_.append(item)
     def getContents(self):
         i = 0
-        print("The current items in the room are: ")
+        string = "The current items in the room are: \n"
         for x in self.contents_:
-            print(self.contents_[i].getName())
+            string += self.contents_[i].getName() + '\n'
             i+=1
+        return string
     def searchContents(self, item):
         for i in range(len(self.contents_)):
             if (self.contents_[i].getName() == item):
@@ -66,7 +67,7 @@ class Room:
     
     #Description functions
     def getDiscription(self):
-        current_directory = os.getcwd()
+        #current_directory = os.getcwd()
         with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_+ '_description.txt') as f:
             lines = f.readlines()
         f.close()

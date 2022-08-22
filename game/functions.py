@@ -21,6 +21,7 @@ def makeMap(mapOrItem):
     stairs = Room("stairs", 6, "null", "null", "entrance", "hallway")
     entrance = Room("entrance", 7, "machine room", "control room", "null", "stairs")
     machineRoom = Room("machine room", 8, "null", "null", "null", "entrance")
+    controlRoom = Room("control room", 9, "none", "none", "none", "entrance")
     
     flashlight = Weapon("flashlight", 5, 1)
     knife = Weapon("knife", 12, 1)
@@ -30,6 +31,7 @@ def makeMap(mapOrItem):
     helmet = Armor("helmet", 0.1, 2)
     sword = Weapon("sword", 35, 1)
     strangeDevice = Item("strange device", "none", 1)
+    key = Item("key", "none", 1)
 
     entity = Enemy("distorted", "cell", 10, 100, 10)
 
@@ -42,11 +44,12 @@ def makeMap(mapOrItem):
     cell.addEnemy(entity)
     entrance.addContents(sword)
     machineRoom.addContents(strangeDevice)
+    controlRoom.addContents(key)
 
     if mapOrItem == "map":
-        return [basement, corridor, bedroom, hallway, cell, stairs, entrance, machineRoom]
+        return [basement, corridor, bedroom, hallway, cell, stairs, entrance, machineRoom, controlRoom]
     elif mapOrItem == "item":
-        return [flashlight, knife, bat, gun, healthStim, helmet, sword,strangeDevice]
+        return [flashlight, knife, bat, gun, healthStim, helmet, sword, strangeDevice, key]
 
 def printHelp():
     return """Help: Brings you to this menu.
@@ -78,7 +81,6 @@ def save(player):
     f.write(player.weapon_.getName() + "\n")
     f.write(player.armor_.getName() + "\n")
     f.close()
-    print("You successfully saved the game!")
 
 def load(items, player):
     f = open("e:/Projects/text_game/game/save.txt")
@@ -164,7 +166,7 @@ def getChoice(choice, player, rooms, window):
     #Done
     if "grab" in choice:
         item = getItemInRoom(current, choice)
-        if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, HealthStim):
+        if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, HealthStim) or isinstance(item, Item):
             if player.searchInv(item):
                 return "You already have this item in your inventory."
             elif current.searchContents(item.getName()):
