@@ -1,13 +1,7 @@
-7
-bat
-helmet
-sword
+1
 strange device
-bat
-helmet
-sword
 100
 control room
 Player
-bat
-helmet
+blank
+blank

@@ -1,3 +1,4 @@
+import time
 from functions import *
 from entity import *
 from item import *
@@ -12,6 +13,7 @@ player = Player("Player", "basement")
 rooms = makeMap("map")
 items = makeMap("item")
 
+trigger = False
 dead = False
 first = True
 win = False
@@ -56,12 +58,14 @@ while(dead != True and win != True):
             first = True
 
         if(first == True):
-            if player.getCurrentRoom() == "control room":
+            if player.getCurrentRoom() == "entrance":
                 if player.searchInv(player.searchItem("key")) and player.searchInv(player.searchItem("strange device")):
-                    with open('e:/Projects/text_game/game/rooms/control room/control room_description_alt1.txt') as f:
+                    with open('e:/Projects/text_game/game/rooms/entrance/entrance_description_alt1.txt') as f:
                         lines = f.readlines()
                     f.close()
-                    window['-DESCRIPTION-'].update(listToStr(lines))  
+                    window['-DESCRIPTION-'].update(listToStr(lines))
+                    window.refresh()
+                    time.sleep(2)
                     win = True
                 else:
                     window['-DESCRIPTION-'].update(currentRoom.getDiscription())
@@ -86,5 +90,12 @@ while(dead != True and win != True):
             sg.popup(available(currentRoom))
         
         if player.searchInv(player.searchItem("key")) and player.searchInv(player.searchItem("strange device")):
-            window['-DESCRIPTION-'].update("You suddently feel the strange device moving.\nYou pick it up and look at it and see a key hole suddently on it.\nYou put the key in it and turn and the device hums to life, you have a feeling the entrance is changed.")
+            if trigger == False:
+                window['-DESCRIPTION-'].update("You suddently feel the strange device moving.\nYou pick it up and look at it and see a key hole suddently on it.\nYou put the key in it and turn and the device hums to life, you have a feeling the entrance is changed.")
+                trigger = True
+
+window['-DESCRIPTION-'].update("Congradulations! You have won!")
+window.refresh()
+time.sleep(2)
+    
 window.close()
