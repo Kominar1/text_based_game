@@ -5,11 +5,12 @@ from item import *
 from room import *
 import PySimpleGUI as sg
 
+directory = pathlib.PurePath(pathlib.Path(__file__)).parent
+
 #Creating player
 player = Player("Player", "basement")
 
 #Creating rooms
-
 rooms = makeMap("map")
 items = makeMap("item")
 
@@ -60,7 +61,7 @@ while(dead != True and win != True):
         if(first == True):
             if player.getCurrentRoom() == "entrance":
                 if player.searchInv(player.searchItem("key")) and player.searchInv(player.searchItem("strange device")):
-                    with open('e:/Projects/text_game/game/rooms/entrance/entrance_description_alt1.txt') as f:
+                    with open(directory.joinpath('rooms', 'entrance', 'entrance_description_alt1.txt')) as f:
                         lines = f.readlines()
                     f.close()
                     window['-DESCRIPTION-'].update(listToStr(lines))

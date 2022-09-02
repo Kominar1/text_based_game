@@ -57,14 +57,12 @@ Items: Prints a list of available items in the room.
 Grab: Type grab and then the item you want to get.
 Move: Type move and the room you want to move to.
 Look: Tells you some aditional information about the space.
-Available: List of rooms available to move to.
 Current: Tells the name of the current room you are in.
 Equip: Let's you equip a weapon from your inventory.
 Put on: Let's you put on a piece of armor.
 Check: Let's you check the amount of damage or healing or protection an item gives you.
 Attack: Let's you attack an enemy by typing attack and then the name of the enemy.
 Enemies: Gives you a list of enemies you can attack.
-Exit: Leaves the game.
 Start: Starts the game."""
 
 def save(player):
@@ -213,8 +211,10 @@ def getChoice(choice, player, rooms, window):
                         event, values = window.read()
     #Done
     if "enemies" in choice:
-        print("Current enemies in the room are: ")
-        current.getEnemies()
+        if current.getEnemies() == '':
+            return "There are no enemies in the room."
+        else:
+            return "Current enemies in the room are: " + current.getEnemies()
     #Done
     if "heal" in choice:
         if choice == "heal":

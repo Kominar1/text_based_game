@@ -1,7 +1,4 @@
-import time
-import sys
-import os
-from pathlib import Path
+import pathlib
 from item import *
 from entity import *
 
@@ -9,12 +6,8 @@ from entity import *
 # Windows path: e:/Projects/text_game/game/rooms/
 #Linux path: /home/kominar/Visual Studio/Projects/text_game/game/rooms/
 
-
-def delay_print(text):
-    for c in text:
-        sys.stdout.write(c)
-        sys.stdout.flush()
-        time.sleep(0.05)
+#Gets current directory
+directory = pathlib.PurePath(pathlib.Path(__file__)).parent
 
 class Room:
     def __init__(self, roomName, roomId, toTheRight, toTheLeft, upAhead, behind):
@@ -55,8 +48,10 @@ class Room:
     def addEnemy(self, enemy):
         self.enemies_.append(enemy)
     def getEnemies(self):
+        string = ''
         for i in range(len(self.enemies_)):
-            print(self.enemies_[i].getName()) 
+            string += self.enemies_[i].getName()
+        return string
     def removeEnemies(self, enemy):
         self.enemies_.remove(enemy)
     def searchEnemies(self, name):
@@ -67,29 +62,28 @@ class Room:
     
     #Description functions
     def getDiscription(self):
-        #current_directory = os.getcwd()
-        with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_+ '_description.txt') as f:
+        with open(directory.joinpath('rooms', self.roomName_, self.roomName_ + '_description.txt')) as f:
             lines = f.readlines()
         f.close()
         return listToStr(lines)
     def getLook(self):
         if self.alt1_ == True and self.alt2_ == False:
-            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt1.txt') as f:
+            with open(directory.joinpath('rooms', self.roomName_, self.roomName_ + '_look_alt1.txt')) as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)
         elif self.alt2_ == True and self.alt1_ == False:
-            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt2.txt') as f:
+            with open(directory.joinpath('rooms', self.roomName_, self.roomName_ + '_look_alt2.txt')) as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)
         elif self.alt1_ == True and self.alt2_ == True:
-            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look_alt3.txt') as f:
+            with open(directory.joinpath('rooms', self.roomName_, self.roomName_ + '_look_alt3.txt')) as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)
         elif self.alt1_ == False and self.alt2_ == False:
-            with open('e:/Projects/text_game/game/rooms/' + self.roomName_ + '/' + self.roomName_ + '_look.txt') as f:
+            with open(directory.joinpath('rooms', self.roomName_, self.roomName_ + '_look.txt')) as f:
                 lines = f.readlines()
             f.close()
             return listToStr(lines)
